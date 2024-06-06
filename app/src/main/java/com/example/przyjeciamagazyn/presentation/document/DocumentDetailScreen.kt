@@ -15,10 +15,11 @@ import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.data.model.Document
 import com.example.przyjeciamagazyn.data.model.DocumentPosition
 import com.example.przyjeciamagazyn.data.repository.sampleDocument
-import com.example.przyjeciamagazyn.presentation.theme.PrzyjeciaMagazynTheme
+import com.example.przyjeciamagazyn.presentation.main.Screen
+import com.example.przyjeciamagazyn.presentation.main.theme.PrzyjeciaMagazynTheme
 
 @Composable
-fun DocumentViewScreen(document: Document) {
+fun DocumentDetailScreen(document: Document, onNavigate: (String) -> Unit) {
     Column(modifier = Modifier.fillMaxSize().padding(25.dp)) {
         Text(text = "Data: ${document.date}", fontSize = 18.sp)
         Text(text = "Symbol: ${document.symbol}", fontSize = 18.sp)
@@ -26,29 +27,21 @@ fun DocumentViewScreen(document: Document) {
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(document.positions) { position ->
-                DocumentPositionRow(position)
+                DocumentPositionRow(position) { route -> onNavigate(route) }
             }
         }
     }
 }
 
 @Composable
-fun DocumentPositionRow(position: DocumentPosition) {
+fun DocumentPositionRow(position: DocumentPosition, onNavigate: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .clickable { /* Navigate to Document Position detail view */ }
+            .clickable { onNavigate(Screen.DocumentPositionDetailScreen.route) }
     ) {
         Text(text = "Nazwa towaru: ${position.productName}", fontSize = 18.sp)
         Text(text = "Jednostka miary: ${position.unit}", fontSize = 18.sp)
         Text(text = "Ilość: ${position.quantity}", fontSize = 18.sp)
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DocumentViewScreenPreview() {
-    PrzyjeciaMagazynTheme {
-        DocumentViewScreen(document = sampleDocument)
     }
 }

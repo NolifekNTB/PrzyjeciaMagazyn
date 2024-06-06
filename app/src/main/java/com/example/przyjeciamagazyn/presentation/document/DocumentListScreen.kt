@@ -12,34 +12,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.data.model.DocumentList
 import com.example.przyjeciamagazyn.data.repository.sampleDocuments
-import com.example.przyjeciamagazyn.presentation.theme.PrzyjeciaMagazynTheme
+import com.example.przyjeciamagazyn.presentation.main.Screen
+import com.example.przyjeciamagazyn.presentation.main.theme.PrzyjeciaMagazynTheme
 
 @Composable
-fun DocumentListViewScreen(documents: List<DocumentList>) {
+fun DocumentListScreen(documents: List<DocumentList>, onNavigate: (String) -> Unit, ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(documents) { DocumentList ->
-            DocumentRow(DocumentList)
+            DocumentRow(DocumentList) { route -> onNavigate(route) }
         }
     }
 }
 
 @Composable
-fun DocumentRow(DocumentList: DocumentList) {
+fun DocumentRow(DocumentList: DocumentList, onNavigate: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .clickable { /* TODO: Navigate to DocumentList detail view */ }
+            .clickable { onNavigate(Screen.DocumentDetailScreen.route) }
     ) {
         Text(text = "Data: ${DocumentList.date}", fontSize = 18.sp)
         Text(text = "Symbol: ${DocumentList.symbol}", fontSize = 18.sp)
         Text(text = "Kontrahent: ${DocumentList.contractor}", fontSize = 18.sp)
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ListDocumentsScreenPreview() {
-    PrzyjeciaMagazynTheme {
-        DocumentListViewScreen(documents = sampleDocuments)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.presentation.theme
+package com.example.przyjeciamagazyn.presentation.main.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

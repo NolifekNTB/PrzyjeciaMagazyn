@@ -17,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.przyjeciamagazyn.presentation.theme.PrzyjeciaMagazynTheme
+import com.example.przyjeciamagazyn.presentation.main.theme.PrzyjeciaMagazynTheme
 import com.example.przyjeciamagazyn.data.model.Contractor
 import com.example.przyjeciamagazyn.data.repository.sampleContractors
 
 @Composable
-fun ContractorListViewScreen(contractors: List<Contractor>) {
+fun ContractorListScreen(contractors: List<Contractor>) {
     var contractorList by remember { mutableStateOf(contractors) }
     Column(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.weight(1f)) {
@@ -53,13 +53,5 @@ fun ContractorRow(contractor: Contractor) {
     ) {
         Text(text = "Symbol: ${contractor.symbol}", fontSize = 18.sp)
         Text(text = "Nazwa: ${contractor.name}", fontSize = 18.sp)
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ContractorListViewScreenPreview() {
-    PrzyjeciaMagazynTheme {
-        ContractorListViewScreen(contractors = sampleContractors)
     }
 }
