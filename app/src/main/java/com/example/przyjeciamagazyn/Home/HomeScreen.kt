@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.presentation.document
+package com.example.przyjeciamagazyn.Home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,8 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import com.example.przyjeciamagazyn.presentation.main.Screen
+import com.example.przyjeciamagazyn.Core.presentation.Screen
 
 @Composable
 fun HomeScreen(onNavigate: (String) -> Unit) {
@@ -19,7 +18,7 @@ fun HomeScreen(onNavigate: (String) -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = { onNavigate (Screen.DocumentListScreen.route) }) {
+        Button(onClick = { onNavigate (Screen.ReceiptDocumentScreen.route) }) {
             Text(text = "Lista Dokumentów", fontSize = 18.sp)
         }
         Button(onClick = { onNavigate (Screen.ContractorListScreen.route) }) {

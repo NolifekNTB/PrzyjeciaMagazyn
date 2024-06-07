@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.presentation.main.theme
+package com.example.przyjeciamagazyn.Core.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

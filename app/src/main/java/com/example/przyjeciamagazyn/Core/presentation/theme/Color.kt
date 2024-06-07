@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.presentation.main.theme
+package com.example.przyjeciamagazyn.Core.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

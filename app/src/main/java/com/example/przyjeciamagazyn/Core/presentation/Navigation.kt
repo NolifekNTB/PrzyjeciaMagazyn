@@ -1,21 +1,20 @@
-package com.example.przyjeciamagazyn.presentation.main
+package com.example.przyjeciamagazyn.Core.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.przyjeciamagazyn.data.repository.sampleContractors
-import com.example.przyjeciamagazyn.data.repository.sampleDocument
-import com.example.przyjeciamagazyn.data.repository.sampleDocuments
-import com.example.przyjeciamagazyn.presentation.contractor.ContractorListScreen
-import com.example.przyjeciamagazyn.presentation.document.DocumentListScreen
-import com.example.przyjeciamagazyn.presentation.document.DocumentPositionDetailScreen
-import com.example.przyjeciamagazyn.presentation.document.DocumentDetailScreen
-import com.example.przyjeciamagazyn.presentation.document.HomeScreen
+import com.example.przyjeciamagazyn.Contractors.presentation.ContractorListScreen
+import com.example.przyjeciamagazyn.Core.data.sampleContractors
+import com.example.przyjeciamagazyn.Core.data.sampleDocuments
+import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptDocumentScreen
+import com.example.przyjeciamagazyn.Receipts.presentation.DocumentPositionDetailScreen
+import com.example.przyjeciamagazyn.Receipts.presentation.DocumentDetailScreen
+import com.example.przyjeciamagazyn.Home.HomeScreen
 
 sealed class Screen(val route: String) {
     data object HomeScreen : Screen("home_screen")
-    data object DocumentListScreen : Screen("document_list_screen")
+    data object ReceiptDocumentScreen : Screen("document_list_screen")
     data object DocumentDetailScreen : Screen("document_detail_screen")
     data object DocumentPositionDetailScreen : Screen("document_position_detail_screen")
     data object ContractorListScreen : Screen("contractor_list_screen")
@@ -23,7 +22,7 @@ sealed class Screen(val route: String) {
 
 //TODO: sampleData
 @Composable
-fun DocumentNavGraph(navController: NavHostController) {
+fun NavigationNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = Screen.HomeScreen.route
@@ -31,14 +30,14 @@ fun DocumentNavGraph(navController: NavHostController) {
         composable(route = Screen.HomeScreen.route) {
             HomeScreen(){ route -> navController.navigate(route) }
         }
-        composable(route = Screen.DocumentListScreen.route) {
-            DocumentListScreen(sampleDocuments) { route -> navController.navigate(route) }
+        composable(route = Screen.ReceiptDocumentScreen.route) {
+            ReceiptDocumentScreen(sampleDocuments) { route -> navController.navigate(route) }
         }
         composable(route = Screen.DocumentDetailScreen.route) {
-            DocumentDetailScreen(sampleDocument) { route -> navController.navigate(route) }
+            DocumentDetailScreen(sampleDocuments[0]) { route -> navController.navigate(route) }
         }
         composable(route = Screen.DocumentPositionDetailScreen.route) {
-            DocumentPositionDetailScreen(sampleDocument.positions[0])
+            DocumentPositionDetailScreen(sampleDocuments[0].positions[0])
         }
         composable(route = Screen.ContractorListScreen.route) {
             ContractorListScreen(sampleContractors)
