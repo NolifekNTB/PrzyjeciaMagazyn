@@ -21,8 +21,10 @@ class ReceiptViewModel @Inject constructor(
     private var _receiptDocuments = MutableStateFlow<List<ReceiptDocument>>(emptyList())
     var receiptDocuments: Flow<List<ReceiptDocument>> = _receiptDocuments
 
+    var selectedDocument = MutableStateFlow<ReceiptDocument?>(null)
+
     init {
-        //insertReceipt(sampleDocuments[0])
+        //insertReceipt(sampleDocuments[1])
         getALlReceipts()
     }
 

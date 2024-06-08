@@ -1,6 +1,5 @@
-package com.example.przyjeciamagazyn.Receipts.presentation
+package com.example.przyjeciamagazyn.Receipts.presentation.screens
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,28 +10,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.przyjeciamagazyn.Core.presentation.Screen
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
+import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
 
 @Composable
-fun ReceiptDocumentScreen(onNavigate: (String) -> Unit, ) {
-    val viewModel = hiltViewModel<ReceiptViewModel>()
-    val documents = viewModel.receiptDocuments.collectAsState(emptyList()).value
+fun ReceiptListScreen(receiptViewModel: ReceiptViewModel, onNavigate: (String) -> Unit, ) {
+    val documents = receiptViewModel.receiptDocuments.collectAsState(emptyList()).value
+    val selectedDocument = receiptViewModel.selectedDocument
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(documents) { ReceiptDocument ->
-            DocumentRow(ReceiptDocument) { route -> onNavigate(route) }
+            DocumentRow(ReceiptDocument) { document ->
+                selectedDocument.value = document
+                onNavigate(Screen.DocumentDetailScreen.route)
+            }
         }
     }
 }
 
 @Composable
-fun DocumentRow(ReceiptDocument: ReceiptDocument, onNavigate: (String) -> Unit) {
+fun DocumentRow(ReceiptDocument: ReceiptDocument, whichDocument: (ReceiptDocument) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .clickable { onNavigate(Screen.DocumentDetailScreen.route) }
+            .clickable { whichDocument(ReceiptDocument) }
     ) {
         Text(text = "Data: ${ReceiptDocument.date}", fontSize = 18.sp)
         Text(text = "Symbol: ${ReceiptDocument.symbol}", fontSize = 18.sp)

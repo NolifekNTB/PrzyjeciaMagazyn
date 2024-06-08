@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.Receipts.presentation
+package com.example.przyjeciamagazyn.Receipts.presentation.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

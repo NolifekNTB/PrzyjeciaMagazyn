@@ -15,6 +15,15 @@ val sampleDocuments = listOf(
             ReceiptPosition(receiptId = 0, productName = "Towar B", unit = "szt", quantity =  5),
             ReceiptPosition(receiptId = 0, productName = "Towar C", unit = "szt", quantity =  3)
         )
+    ),
+    ReceiptDocument(
+        date = "2024-06-02",
+        symbol = "PZ/2/2024",
+        contractor = "DEF Ltd.",
+        positions = listOf(
+            ReceiptPosition(receiptId = 0, productName = "Towar A", unit = "szt", quantity =  5),
+            ReceiptPosition(receiptId = 0, productName = "Towar B", unit = "szt", quantity =  10)
+        )
     )
 )
 
