@@ -1,16 +1,23 @@
 package com.example.przyjeciamagazyn.Contractors.data.repository
 
+import android.content.Context
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
+import com.example.przyjeciamagazyn.Core.data.ROOM.AppDatabase
 import com.example.przyjeciamagazyn.Core.data.ROOM.dao.ContractorDao
 import kotlinx.coroutines.flow.Flow
 
-class ContractorRepository(private val contractorDao: ContractorDao) {
+class ContractorRepository(context: Context): ContractorDao {
+    private val contractorDao = AppDatabase.getInstance(context).contractorDao()
 
-    fun getAllContractors(): Flow<List<Contractor>> {
+    override fun getAllContractors(): Flow<List<Contractor>> {
         return contractorDao.getAllContractors()
     }
 
-    suspend fun insertContractor(contractor: Contractor) {
+    override suspend fun insertContractor(contractor: Contractor) {
         contractorDao.insertContractor(contractor)
+    }
+
+    override suspend fun deleteAllContractors() {
+        contractorDao.deleteAllContractors()
     }
 }

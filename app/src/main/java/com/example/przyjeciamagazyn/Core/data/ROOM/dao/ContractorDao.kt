@@ -12,5 +12,8 @@ interface ContractorDao {
     fun getAllContractors(): Flow<List<Contractor>>
 
     @Insert
-    fun insertContractor(contractor: Contractor)
+    suspend fun insertContractor(contractor: Contractor)
+
+    @Query("DELETE FROM contractors")
+    suspend fun deleteAllContractors()
 }

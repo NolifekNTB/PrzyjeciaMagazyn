@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,11 +17,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 
 @Composable
-fun ContractorListScreen(contractors: List<Contractor>) {
-    var contractorList by remember { mutableStateOf(contractors) }
+fun ContractorListScreen() {
+    val contractorViewModel = hiltViewModel<ContractorViewModel>()
+    val contractorList = contractorViewModel.contractors.collectAsState(emptyList()).value
 
     Column(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.weight(1f)) {
@@ -30,8 +33,8 @@ fun ContractorListScreen(contractors: List<Contractor>) {
         }
         Button(
             onClick = {
-                //TODO: Logic to add a ne contractor
-                contractorList = contractorList + Contractor("NEW", "New Contractor")
+                contractorViewModel.insertContractor(Contractor("NEW", "New Contractor"))
+                contractorViewModel.getAllContractors()
             },
             modifier = Modifier
                 .fillMaxWidth()

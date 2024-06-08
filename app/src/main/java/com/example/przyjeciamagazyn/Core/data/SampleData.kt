@@ -29,7 +29,7 @@ val sampleDocuments = listOf(
 
 // Sample data for preview and testing
 val sampleContractors = listOf(
-    Contractor("ABC", "ABC Sp. z o.o."),
-    Contractor("XYZ", "XYZ S.A."),
-    Contractor("DEF", "DEF Ltd.")
+    Contractor("ABC1", "ABC Sp. z o.o."),
+    Contractor("XYZ2", "XYZ S.A."),
+    Contractor("DEF3", "DEF Ltd.")
 )
