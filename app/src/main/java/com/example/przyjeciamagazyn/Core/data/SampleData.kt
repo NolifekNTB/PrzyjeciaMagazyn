@@ -11,29 +11,9 @@ val sampleDocuments = listOf(
         symbol = "PZ/1/2024",
         contractor = "ABC Sp. z o.o.",
         positions = listOf(
-            ReceiptPosition("Towar A", "szt", 10),
-            ReceiptPosition("Towar B", "kg", 5),
-            ReceiptPosition("Towar C", "l", 3)
-        )
-    ),
-    ReceiptDocument(
-        date = "2024-06-02",
-        symbol = "PZ/2/2024",
-        contractor = "XYZ S.A.",
-        positions = listOf(
-            ReceiptPosition("Towar A", "szt", 10),
-            ReceiptPosition("Towar B", "kg", 5),
-            ReceiptPosition("Towar C", "l", 3)
-        )
-    ),
-    ReceiptDocument(
-        date = "2024-06-03",
-        symbol = "PZ/3/2024",
-        contractor = "DEF Ltd.",
-        positions = listOf(
-            ReceiptPosition("Towar A", "szt", 10),
-            ReceiptPosition("Towar B", "kg", 5),
-            ReceiptPosition("Towar C", "l", 3)
+            ReceiptPosition(receiptId = 0, productName = "Towar A", unit = "szt", quantity =  10),
+            ReceiptPosition(receiptId = 0, productName = "Towar B", unit = "szt", quantity =  5),
+            ReceiptPosition(receiptId = 0, productName = "Towar C", unit = "szt", quantity =  3)
         )
     )
 )

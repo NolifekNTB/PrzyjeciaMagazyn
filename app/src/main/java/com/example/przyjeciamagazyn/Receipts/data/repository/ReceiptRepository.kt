@@ -6,14 +6,16 @@ import com.example.przyjeciamagazyn.Core.data.ROOM.dao.ReceiptDao
 import com.example.przyjeciamagazyn.Core.data.ROOM.dao.ReceiptPositionDao
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 
 class ReceiptRepository(context: Context): ReceiptDao, ReceiptPositionDao {
     private val receipt = AppDatabase.getInstance(context).receiptDao()
     private val receiptPosition = AppDatabase.getInstance(context).receiptPositionDao()
 
-    override fun getAllReceipts(): Flow<List<ReceiptDocument>> {
+    override fun getAllReceipts(): Flow<List<ReceiptDocument>>  {
         return receipt.getAllReceipts()
     }
 
@@ -27,5 +29,9 @@ class ReceiptRepository(context: Context): ReceiptDao, ReceiptPositionDao {
 
     override suspend fun insertReceiptPosition(position: ReceiptPosition) {
         receiptPosition.insertReceiptPosition(position)
+    }
+
+    override suspend fun deleteAllReceipts() {
+        receipt.deleteAllReceipts()
     }
 }

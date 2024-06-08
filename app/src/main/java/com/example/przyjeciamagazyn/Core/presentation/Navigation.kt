@@ -31,7 +31,7 @@ fun NavigationNavGraph(navController: NavHostController) {
             HomeScreen(){ route -> navController.navigate(route) }
         }
         composable(route = Screen.ReceiptDocumentScreen.route) {
-            ReceiptDocumentScreen(sampleDocuments) { route -> navController.navigate(route) }
+            ReceiptDocumentScreen() { route -> navController.navigate(route) }
         }
         composable(route = Screen.DocumentDetailScreen.route) {
             DocumentDetailScreen(sampleDocuments[0]) { route -> navController.navigate(route) }

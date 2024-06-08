@@ -13,4 +13,7 @@ interface ReceiptDao {
 
     @Insert
     suspend fun insertReceipt(receipt: ReceiptDocument)
+
+    @Query("DELETE FROM receipts")
+    suspend fun deleteAllReceipts()
 }
