@@ -1,5 +1,6 @@
 package com.example.przyjeciamagazyn.Receipts.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,18 +31,21 @@ fun DocumentDetailScreen(receiptViewModel: ReceiptViewModel, onNavigate: (String
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(receipt.positions) { position ->
-                DocumentPositionRow(position) { route -> onNavigate(route) }
+                DocumentPositionRow(position) { receiptPosition ->
+                    receiptViewModel.selectedDocumentPosition.value = receiptPosition
+                    onNavigate(Screen.DocumentPositionDetailScreen.route)
+                }
             }
         }
     }
 }
 
 @Composable
-fun DocumentPositionRow(position: ReceiptPosition, onNavigate: (String) -> Unit) {
+fun DocumentPositionRow(position: ReceiptPosition, onNavigate: (ReceiptPosition) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .clickable { onNavigate(Screen.DocumentPositionDetailScreen.route) }
+            .clickable { onNavigate(position) }
     ) {
         Text(text = "Nazwa towaru: ${position.productName}", fontSize = 18.sp)
         Text(text = "Jednostka miary: ${position.unit}", fontSize = 18.sp)

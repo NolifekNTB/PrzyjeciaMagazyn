@@ -40,7 +40,7 @@ fun NavigationNavGraph(navController: NavHostController) {
             DocumentDetailScreen(receiptViewModel) { route -> navController.navigate(route) }
         }
         composable(route = Screen.DocumentPositionDetailScreen.route) {
-            DocumentPositionDetailScreen(sampleDocuments[0].positions[0])
+            DocumentPositionDetailScreen(receiptViewModel)
         }
         composable(route = Screen.ContractorListScreen.route) {
             ContractorListScreen(sampleContractors)
