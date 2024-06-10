@@ -21,8 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 
 @Composable
-fun ContractorListScreen() {
-    val contractorViewModel = hiltViewModel<ContractorViewModel>()
+fun ContractorListScreen(contractorViewModel: ContractorViewModel) {
     val contractorList = contractorViewModel.contractors.collectAsState(emptyList()).value
 
     Column(modifier = Modifier.fillMaxSize()) {
