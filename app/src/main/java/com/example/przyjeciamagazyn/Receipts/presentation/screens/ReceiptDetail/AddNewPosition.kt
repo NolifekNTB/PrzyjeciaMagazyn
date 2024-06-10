@@ -83,9 +83,11 @@ fun AddPositionButton(
     receiptViewModel: ReceiptViewModel,
     onNavigate: (String) -> Unit
 ) {
+    val isQuantityValid = quantity.toIntOrNull() != null
+
     Button(
         onClick = {
-            if (productName.isNotEmpty() && unit.isNotEmpty() && quantity.isNotEmpty()) {
+            if (productName.isNotEmpty() && unit.isNotEmpty() && isQuantityValid) {
                 val newPosition = ReceiptPosition(
                     receiptId = receiptId,
                     productName = productName,

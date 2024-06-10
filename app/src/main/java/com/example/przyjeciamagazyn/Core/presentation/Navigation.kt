@@ -6,6 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.przyjeciamagazyn.Contractors.presentation.AddNewContractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorListScreen
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.ReceiptListScreen
@@ -27,6 +28,7 @@ sealed class Screen(val route: String) {
 sealed class AddScreens(val route: String) {
     data object AddDocumentSheet : AddScreens("add_document_sheet")
     data object AddPositionSheet : AddScreens("add_position_sheet")
+    data object AddContractorSheet : AddScreens("add_contractor_sheet")
 }
 
 @Composable
@@ -60,8 +62,14 @@ fun NavigationNavGraph(navController: NavHostController) {
         composable(route = Screen.DocumentPositionDetailScreen.route) {
             DocumentPositionDetailScreen(receiptViewModel)
         }
+
         composable(route = Screen.ContractorListScreen.route) {
-            ContractorListScreen(contractorViewModel)
+            ContractorListScreen(contractorViewModel) { route -> navController.navigate(route) }
         }
+
+        composable(route = AddScreens.AddContractorSheet.route) {
+            AddNewContractor(contractorViewModel = contractorViewModel) { route -> navController.navigate(route) }
+        }
+
     }
 }

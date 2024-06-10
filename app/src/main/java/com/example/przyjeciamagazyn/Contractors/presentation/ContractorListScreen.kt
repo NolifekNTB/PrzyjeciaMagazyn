@@ -14,14 +14,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
+import com.example.przyjeciamagazyn.Core.presentation.AddScreens
 
 @Composable
-fun ContractorListScreen(contractorViewModel: ContractorViewModel) {
+fun ContractorListScreen(contractorViewModel: ContractorViewModel, onNavigate: (String) -> Unit) {
     val contractorList = contractorViewModel.contractors.collectAsState(emptyList()).value
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -31,15 +33,13 @@ fun ContractorListScreen(contractorViewModel: ContractorViewModel) {
             }
         }
         Button(
-            onClick = {
-                contractorViewModel.insertContractor(Contractor("NEW", "New Contractor"))
-                contractorViewModel.getAllContractors()
-            },
+            onClick = { onNavigate(AddScreens.AddContractorSheet.route) },
             modifier = Modifier
+                .align(Alignment.CenterHorizontally)
                 .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Text(text = "Dodaj nowego kontrahenta", fontSize = 18.sp)
+                .padding(16.dp))
+        {
+            Text(text = "Dodaj nowego kontrahenta")
         }
     }
 }

@@ -20,10 +20,10 @@ class ContractorViewModel @Inject constructor (
     var contractors: Flow<List<Contractor>> = _contractors
 
     init {
-        deleteContractors()
-        insertContractor(sampleContractors[0])
-        insertContractor(sampleContractors[1])
-        getAllContractors()
+        //deleteContractors()
+        //insertContractor(sampleContractors[0])
+        //insertContractor(sampleContractors[1])
+        //getAllContractors()
     }
 
     fun getAllContractors() {
@@ -36,6 +36,7 @@ class ContractorViewModel @Inject constructor (
     fun insertContractor(contractor: Contractor) {
         viewModelScope.launch {
             contractorRepository.insertContractor(contractor)
+            getAllContractors()
         }
     }
 
