@@ -27,7 +27,7 @@ fun DocumentDetailScreen(receiptViewModel: ReceiptViewModel, onNavigate: (String
         .padding(25.dp)) {
         Text(text = "Data: ${receipt.date}", fontSize = 18.sp)
         Text(text = "Symbol: ${receipt.symbol}", fontSize = 18.sp)
-        Text(text = "Kontrahent: ${receipt.contractor}", fontSize = 18.sp)
+        Text(text = "Kontrahent: ${receipt.contractors}", fontSize = 18.sp)
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(receipt.positions) { position ->

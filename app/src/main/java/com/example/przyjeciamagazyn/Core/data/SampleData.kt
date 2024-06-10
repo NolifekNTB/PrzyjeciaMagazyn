@@ -9,7 +9,7 @@ val sampleDocuments = listOf(
     ReceiptDocument(
         date = "2024-06-01",
         symbol = "PZ/1/2024",
-        contractor = "ABC Sp. z o.o.",
+        contractors = listOf(Contractor("ABC1", "ABC Sp. z o.o.")),
         positions = listOf(
             ReceiptPosition(receiptId = 0, productName = "Towar A", unit = "szt", quantity =  10),
             ReceiptPosition(receiptId = 0, productName = "Towar B", unit = "szt", quantity =  5),
@@ -19,7 +19,7 @@ val sampleDocuments = listOf(
     ReceiptDocument(
         date = "2024-06-02",
         symbol = "PZ/2/2024",
-        contractor = "DEF Ltd.",
+        contractors = listOf(Contractor("ABC2", "ABC Sp. z o.o.")),
         positions = listOf(
             ReceiptPosition(receiptId = 0, productName = "Towar A", unit = "szt", quantity =  5),
             ReceiptPosition(receiptId = 0, productName = "Towar B", unit = "szt", quantity =  10)

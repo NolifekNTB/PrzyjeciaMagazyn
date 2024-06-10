@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
+import com.example.przyjeciamagazyn.Core.data.ROOM.Converter.ContractorConverter
 import com.example.przyjeciamagazyn.Core.data.ROOM.Converter.ReceiptPositionConverter
 import com.example.przyjeciamagazyn.Core.data.ROOM.dao.ContractorDao
 import com.example.przyjeciamagazyn.Core.data.ROOM.dao.ReceiptDao
@@ -18,7 +19,7 @@ import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
     ReceiptPosition::class,
     Contractor::class],
     version = 1)
-@TypeConverters(ReceiptPositionConverter::class)
+@TypeConverters(ReceiptPositionConverter::class, ContractorConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun receiptDao(): ReceiptDao
     abstract fun receiptPositionDao(): ReceiptPositionDao

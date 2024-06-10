@@ -38,6 +38,6 @@ fun DocumentRow(ReceiptDocument: ReceiptDocument, whichDocument: (ReceiptDocumen
     ) {
         Text(text = "Data: ${ReceiptDocument.date}", fontSize = 18.sp)
         Text(text = "Symbol: ${ReceiptDocument.symbol}", fontSize = 18.sp)
-        Text(text = "Kontrahent: ${ReceiptDocument.contractor}", fontSize = 18.sp)
+        Text(text = "Kontrahent: ${ReceiptDocument.contractors}", fontSize = 18.sp)
     }
 }
