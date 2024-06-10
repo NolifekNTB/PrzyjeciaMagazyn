@@ -1,5 +1,6 @@
 package com.example.przyjeciamagazyn.Core.presentation
 
+import android.accessibilityservice.AccessibilityService.ScreenshotResult
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -7,14 +8,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorListScreen
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
-import com.example.przyjeciamagazyn.Core.data.sampleContractors
-import com.example.przyjeciamagazyn.Core.data.sampleDocuments
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptListScreen
+import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.ReceiptListScreen
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.DocumentPositionDetailScreen
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.DocumentDetailScreen
+import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.DocumentDetailScreen
 import com.example.przyjeciamagazyn.Home.HomeScreen
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.AddNewReceipt
+import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.AddNewReceipt
+import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.AddNewPosition
 
 sealed class Screen(val route: String) {
     data object HomeScreen : Screen("home_screen")
@@ -52,6 +52,11 @@ fun NavigationNavGraph(navController: NavHostController) {
         composable(route = Screen.DocumentDetailScreen.route) {
             DocumentDetailScreen(receiptViewModel) { route -> navController.navigate(route) }
         }
+
+        composable(route = AddScreens.AddPositionSheet.route) {
+            AddNewPosition(receiptViewModel = receiptViewModel) { route -> navController.navigate(route) }
+        }
+
         composable(route = Screen.DocumentPositionDetailScreen.route) {
             DocumentPositionDetailScreen(receiptViewModel)
         }

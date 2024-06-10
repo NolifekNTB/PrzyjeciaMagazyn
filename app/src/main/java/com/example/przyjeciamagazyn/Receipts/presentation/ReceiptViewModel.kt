@@ -33,7 +33,7 @@ class ReceiptViewModel @Inject constructor(
         repository.insertReceipt(receipt)
     }
 
-    private fun getALlReceipts() {
+    fun getALlReceipts() {
         viewModelScope.launch {
             val result = repository.getAllReceipts().first()
             _receiptDocuments.value = result
@@ -46,11 +46,22 @@ class ReceiptViewModel @Inject constructor(
 
     fun insertReceiptPosition(position: ReceiptPosition) = viewModelScope.launch {
         repository.insertReceiptPosition(position)
+        updateReceiptWithPosition(position)
     }
 
     fun getPositionsForReceipt(receiptId: Int) {
         viewModelScope.launch {
             var result = repository.getPositionsForReceipt(receiptId).first()
+        }
+    }
+
+    private suspend fun updateReceiptWithPosition(position: ReceiptPosition) {
+        if (selectedDocument.value != null) {
+            val updatedPositions = selectedDocument.value!!.positions.toMutableList()
+            updatedPositions.add(position)
+            val updatedReceipt = selectedDocument.value!!.copy(positions = updatedPositions)
+            repository.updateReceiptPositions(selectedDocument.value!!.id, updatedReceipt.positions)
+            selectedDocument = MutableStateFlow(updatedReceipt)
         }
     }
 }

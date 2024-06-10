@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.Receipts.presentation.screens
+package com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -8,7 +8,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
 import com.example.przyjeciamagazyn.Core.presentation.Screen

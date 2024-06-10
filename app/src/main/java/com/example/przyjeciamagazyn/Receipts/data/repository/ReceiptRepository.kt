@@ -34,4 +34,9 @@ class ReceiptRepository(context: Context): ReceiptDao, ReceiptPositionDao {
     override suspend fun deleteAllReceipts() {
         receipt.deleteAllReceipts()
     }
+
+    override suspend fun updateReceiptPositions(id: Int, positions: List<ReceiptPosition>) {
+        receipt.updateReceiptPositions(id, positions)
+    }
+
 }
