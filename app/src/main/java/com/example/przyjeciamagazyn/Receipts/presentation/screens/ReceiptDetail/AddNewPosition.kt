@@ -1,5 +1,6 @@
 package com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -89,8 +90,8 @@ fun AddPositionButton(
         onClick = {
             if (productName.isNotEmpty() && unit.isNotEmpty() && isQuantityValid) {
                 val newPosition = ReceiptPosition(
-                    receiptId = receiptId,
                     productName = productName,
+                    receiptId = receiptId,
                     unit = unit,
                     quantity = quantity.toInt()
                 )

@@ -3,6 +3,7 @@ package com.example.przyjeciamagazyn.Core.data.ROOM.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
 import kotlinx.coroutines.flow.Flow
@@ -20,4 +21,10 @@ interface ReceiptDao {
 
     @Query("UPDATE receipts SET positions = :positions WHERE id = :id")
     suspend fun updateReceiptPositions(id: Int, positions: List<ReceiptPosition>)
+
+    @Update
+    suspend fun updateReceipt(updatedReceipt: ReceiptDocument)
+
+    @Query("SELECT * FROM receipts WHERE id = :id")
+    fun getReceipt(id: Int): Flow<ReceiptDocument>
 }

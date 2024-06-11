@@ -1,9 +1,9 @@
 package com.example.przyjeciamagazyn.Receipts.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.przyjeciamagazyn.Core.data.ROOM.AppDatabase
-import com.example.przyjeciamagazyn.Core.data.sampleDocuments
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
 import com.example.przyjeciamagazyn.Receipts.data.repository.ReceiptRepository
@@ -46,22 +46,43 @@ class ReceiptViewModel @Inject constructor(
 
     fun insertReceiptPosition(position: ReceiptPosition) = viewModelScope.launch {
         repository.insertReceiptPosition(position)
-        updateReceiptWithPosition(position)
+        refreshReceiptPositions(position.receiptId)
     }
 
-    fun getPositionsForReceipt(receiptId: Int) {
+
+    fun updateReceipt(updatedReceipt: ReceiptDocument) {
         viewModelScope.launch {
-            var result = repository.getPositionsForReceipt(receiptId).first()
+            repository.updateReceipt(updatedReceipt)
         }
     }
 
-    private suspend fun updateReceiptWithPosition(position: ReceiptPosition) {
-        if (selectedDocument.value != null) {
-            val updatedPositions = selectedDocument.value!!.positions.toMutableList()
-            updatedPositions.add(position)
-            val updatedReceipt = selectedDocument.value!!.copy(positions = updatedPositions)
-            repository.updateReceiptPositions(selectedDocument.value!!.id, updatedReceipt.positions)
-            selectedDocument = MutableStateFlow(updatedReceipt)
+    fun updateReceiptPosition(position: ReceiptPosition){
+        viewModelScope.launch {
+            repository.updateReceiptPosition(position)
+            refreshReceiptPositions(position.receiptId)
+            refreshPosition(position.id)
+        }
+    }
+
+    fun updatedReceipt(receiptId: Int) {
+        viewModelScope.launch {
+            val receipt = repository.getReceipt(receiptId).first()
+            selectedDocument.value = receipt
+        }
+    }
+
+    fun refreshReceiptPositions(receiptId: Int) {
+        viewModelScope.launch {
+            val positions = repository.getPositionsForReceipt(receiptId).first()
+            repository.updateReceiptPositions(selectedDocument.value!!.id, positions)
+            updatedReceipt(receiptId)
+        }
+    }
+
+    fun refreshPosition(positionId: Int) {
+        viewModelScope.launch {
+            val position = repository.getPosition(positionId).first()
+            selectedDocumentPosition.value = position
         }
     }
 }

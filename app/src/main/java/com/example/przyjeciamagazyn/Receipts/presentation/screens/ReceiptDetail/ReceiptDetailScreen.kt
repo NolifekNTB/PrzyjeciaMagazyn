@@ -1,5 +1,6 @@
 package com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.Core.presentation.AddScreens
+import com.example.przyjeciamagazyn.Core.presentation.EditScreens
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
 import com.example.przyjeciamagazyn.Core.presentation.Screen
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
@@ -46,6 +48,16 @@ fun DocumentDetailScreen(receiptViewModel: ReceiptViewModel, onNavigate: (String
         }
 
         Button(
+            onClick = { onNavigate(EditScreens.EditDocumentSheet.route) },
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth()
+                .padding(16.dp))
+        {
+            Text(text = "Edytuj dokument")
+        }
+
+        Button(
             onClick = { onNavigate(AddScreens.AddPositionSheet.route) },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -54,6 +66,8 @@ fun DocumentDetailScreen(receiptViewModel: ReceiptViewModel, onNavigate: (String
         {
             Text(text = "Dodaj pozycje")
         }
+
+
     }
 }
 

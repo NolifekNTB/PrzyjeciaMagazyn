@@ -15,7 +15,9 @@ import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.
 import com.example.przyjeciamagazyn.Home.HomeScreen
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.AddNewReceipt
+import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.EditReceiptDocumentScreen
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.AddNewPosition
+import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.EditPositionScreen
 
 sealed class Screen(val route: String) {
     data object HomeScreen : Screen("home_screen")
@@ -31,6 +33,11 @@ sealed class AddScreens(val route: String) {
     data object AddContractorSheet : AddScreens("add_contractor_sheet")
 }
 
+sealed class EditScreens(val route: String) {
+    data object EditDocumentSheet : EditScreens("edit_document_sheet")
+    data object EditPositionSheet : EditScreens("edit_position_sheet")
+}
+
 @Composable
 fun NavigationNavGraph(navController: NavHostController) {
     val receiptViewModel = hiltViewModel<ReceiptViewModel>()
@@ -43,6 +50,9 @@ fun NavigationNavGraph(navController: NavHostController) {
         composable(route = Screen.HomeScreen.route) {
             HomeScreen(){ route -> navController.navigate(route) }
         }
+
+        ////////////////////////////////////////////////////////////////////////////////
+
         composable(route = Screen.ReceiptDocumentScreen.route) {
             ReceiptListScreen(receiptViewModel) { route -> navController.navigate(route) }
         }
@@ -50,6 +60,12 @@ fun NavigationNavGraph(navController: NavHostController) {
         composable(route = AddScreens.AddDocumentSheet.route) {
             AddNewReceipt(contractorViewModel, receiptViewModel) { route -> navController.navigate(route) }
         }
+
+        composable(route = EditScreens.EditDocumentSheet.route) {
+            EditReceiptDocumentScreen(contractorViewModel, receiptViewModel) { route -> navController.navigate(route) }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
 
         composable(route = Screen.DocumentDetailScreen.route) {
             DocumentDetailScreen(receiptViewModel) { route -> navController.navigate(route) }
@@ -60,8 +76,14 @@ fun NavigationNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.DocumentPositionDetailScreen.route) {
-            DocumentPositionDetailScreen(receiptViewModel)
+            DocumentPositionDetailScreen(receiptViewModel) { route -> navController.navigate(route) }
         }
+
+        composable(route = EditScreens.EditPositionSheet.route) {
+            EditPositionScreen(receiptViewModel) { route -> navController.navigate(route) }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
 
         composable(route = Screen.ContractorListScreen.route) {
             ContractorListScreen(contractorViewModel) { route -> navController.navigate(route) }

@@ -31,6 +31,14 @@ class ReceiptRepository(context: Context): ReceiptDao, ReceiptPositionDao {
         receiptPosition.insertReceiptPosition(position)
     }
 
+    override suspend fun updateReceiptPosition(position: ReceiptPosition) {
+        receiptPosition.updateReceiptPosition(position)
+    }
+
+    override fun getPosition(id: Int): Flow<ReceiptPosition> {
+        return receiptPosition.getPosition(id)
+    }
+
     override suspend fun deleteAllReceipts() {
         receipt.deleteAllReceipts()
     }
@@ -39,4 +47,11 @@ class ReceiptRepository(context: Context): ReceiptDao, ReceiptPositionDao {
         receipt.updateReceiptPositions(id, positions)
     }
 
+    override suspend fun updateReceipt(updatedReceipt: ReceiptDocument) {
+        receipt.updateReceipt(updatedReceipt)
+    }
+
+    override fun getReceipt(id: Int): Flow<ReceiptDocument> {
+        return receipt.getReceipt(id)
+    }
 }
