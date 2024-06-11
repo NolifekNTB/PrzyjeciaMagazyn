@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.Core.presentation.BackButton
-import com.example.przyjeciamagazyn.Core.presentation.EditScreens
+import com.example.przyjeciamagazyn.Core.presentation.Navigation.EditScreens
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
 
 @Composable

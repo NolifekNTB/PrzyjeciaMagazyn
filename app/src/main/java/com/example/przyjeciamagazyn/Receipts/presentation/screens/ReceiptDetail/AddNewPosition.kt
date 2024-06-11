@@ -1,6 +1,5 @@
 package com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -8,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.przyjeciamagazyn.Core.presentation.BackButton
-import com.example.przyjeciamagazyn.Core.presentation.Screen
+import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
 

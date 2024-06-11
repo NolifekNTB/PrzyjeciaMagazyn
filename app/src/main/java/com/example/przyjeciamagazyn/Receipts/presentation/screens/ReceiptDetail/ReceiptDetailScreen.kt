@@ -1,6 +1,5 @@
 package com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,20 +12,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.przyjeciamagazyn.Core.presentation.AddScreens
+import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
 import com.example.przyjeciamagazyn.Core.presentation.BackButton
-import com.example.przyjeciamagazyn.Core.presentation.EditScreens
+import com.example.przyjeciamagazyn.Core.presentation.Navigation.EditScreens
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
-import com.example.przyjeciamagazyn.Core.presentation.Screen
+import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
-import kotlinx.coroutines.coroutineScope
-import kotlin.coroutines.coroutineContext
 
 @Composable
 fun DocumentDetailScreen(receiptViewModel: ReceiptViewModel, onNavigate: (String) -> Unit) {

@@ -18,9 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.przyjeciamagazyn.Core.presentation.AddScreens
+import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
 import com.example.przyjeciamagazyn.Core.presentation.BackButton
-import com.example.przyjeciamagazyn.Core.presentation.Screen
+import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
 
