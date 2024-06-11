@@ -1,14 +1,14 @@
 package com.example.przyjeciamagazyn.Core.presentation
 
-import android.accessibilityservice.AccessibilityService.ScreenshotResult
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.przyjeciamagazyn.Contractors.presentation.AddNewContractor
-import com.example.przyjeciamagazyn.Contractors.presentation.ContractorListScreen
+import com.example.przyjeciamagazyn.Contractors.presentation.screens.AddNewContractor
+import com.example.przyjeciamagazyn.Contractors.presentation.screens.ContractorListScreen
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
+import com.example.przyjeciamagazyn.Contractors.presentation.screens.EditContractorScreen
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.ReceiptListScreen
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.DocumentPositionDetailScreen
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.DocumentDetailScreen
@@ -36,6 +36,7 @@ sealed class AddScreens(val route: String) {
 sealed class EditScreens(val route: String) {
     data object EditDocumentSheet : EditScreens("edit_document_sheet")
     data object EditPositionSheet : EditScreens("edit_position_sheet")
+    data object EditContractorSheet : EditScreens("edit_contractor_sheet")
 }
 
 @Composable
@@ -91,6 +92,10 @@ fun NavigationNavGraph(navController: NavHostController) {
 
         composable(route = AddScreens.AddContractorSheet.route) {
             AddNewContractor(contractorViewModel = contractorViewModel) { route -> navController.navigate(route) }
+        }
+
+        composable(route = EditScreens.EditContractorSheet.route) {
+            EditContractorScreen(contractorViewModel) { route -> navController.navigate(route) }
         }
 
     }

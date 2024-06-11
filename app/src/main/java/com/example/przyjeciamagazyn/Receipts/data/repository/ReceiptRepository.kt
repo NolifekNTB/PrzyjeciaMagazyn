@@ -54,4 +54,8 @@ class ReceiptRepository(context: Context): ReceiptDao, ReceiptPositionDao {
     override fun getReceipt(id: Int): Flow<ReceiptDocument> {
         return receipt.getReceipt(id)
     }
+
+    override fun getReceiptsContainingContractor(contractorId: Int): Flow<List<ReceiptDocument>> {
+        return receipt.getReceiptsContainingContractor(contractorId)
+    }
 }

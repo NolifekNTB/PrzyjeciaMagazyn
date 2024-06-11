@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.Contractors.presentation
+package com.example.przyjeciamagazyn.Contractors.presentation.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
+import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
 import com.example.przyjeciamagazyn.Core.presentation.Screen
 
 @Composable

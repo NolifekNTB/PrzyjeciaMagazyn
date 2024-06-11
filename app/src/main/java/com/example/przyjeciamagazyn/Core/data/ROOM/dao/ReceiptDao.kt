@@ -27,4 +27,8 @@ interface ReceiptDao {
 
     @Query("SELECT * FROM receipts WHERE id = :id")
     fun getReceipt(id: Int): Flow<ReceiptDocument>
+
+    @Query("SELECT * FROM receipts WHERE :contractorId IN (SELECT id FROM contractors WHERE contractors.id = :contractorId)")
+    fun getReceiptsContainingContractor(contractorId: Int): Flow<List<ReceiptDocument>>
+
 }

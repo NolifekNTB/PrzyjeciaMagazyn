@@ -24,6 +24,4 @@ object AppModule {
     fun provideContextContractorRepository(app: Application): ContractorRepository {
         return ContractorRepository(app.applicationContext)
     }
-
-
 }

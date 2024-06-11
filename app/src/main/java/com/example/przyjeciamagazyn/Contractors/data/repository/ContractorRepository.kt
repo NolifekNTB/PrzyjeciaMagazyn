@@ -20,4 +20,8 @@ class ContractorRepository(context: Context): ContractorDao {
     override suspend fun deleteAllContractors() {
         contractorDao.deleteAllContractors()
     }
+
+    override suspend fun updateContractor(contractor: Contractor) {
+        contractorDao.updateContractor(contractor)
+    }
 }

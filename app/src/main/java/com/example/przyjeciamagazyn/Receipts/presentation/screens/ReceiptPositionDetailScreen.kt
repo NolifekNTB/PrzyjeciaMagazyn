@@ -13,10 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.przyjeciamagazyn.Core.data.sampleDocuments
-import com.example.przyjeciamagazyn.Core.presentation.AddScreens
 import com.example.przyjeciamagazyn.Core.presentation.EditScreens
-import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
 
 @Composable

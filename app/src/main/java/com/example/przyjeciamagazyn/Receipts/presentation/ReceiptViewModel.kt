@@ -64,18 +64,18 @@ class ReceiptViewModel @Inject constructor(
         }
     }
 
-    fun updatedReceipt(receiptId: Int) {
-        viewModelScope.launch {
-            val receipt = repository.getReceipt(receiptId).first()
-            selectedDocument.value = receipt
-        }
-    }
-
     fun refreshReceiptPositions(receiptId: Int) {
         viewModelScope.launch {
             val positions = repository.getPositionsForReceipt(receiptId).first()
             repository.updateReceiptPositions(selectedDocument.value!!.id, positions)
             updatedReceipt(receiptId)
+        }
+    }
+
+    fun updatedReceipt(receiptId: Int) {
+        viewModelScope.launch {
+            val receipt = repository.getReceipt(receiptId).first()
+            selectedDocument.value = receipt
         }
     }
 

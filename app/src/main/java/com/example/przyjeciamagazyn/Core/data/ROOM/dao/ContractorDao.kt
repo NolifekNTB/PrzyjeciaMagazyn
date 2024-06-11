@@ -3,6 +3,7 @@ package com.example.przyjeciamagazyn.Core.data.ROOM.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import kotlinx.coroutines.flow.Flow
 
@@ -16,4 +17,7 @@ interface ContractorDao {
 
     @Query("DELETE FROM contractors")
     suspend fun deleteAllContractors()
+
+    @Update
+    suspend fun updateContractor(contractor: Contractor)
 }
