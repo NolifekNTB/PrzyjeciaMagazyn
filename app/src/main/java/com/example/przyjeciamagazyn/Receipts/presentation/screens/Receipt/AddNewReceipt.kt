@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
+import com.example.przyjeciamagazyn.Core.presentation.BackButton
 import com.example.przyjeciamagazyn.Core.presentation.Screen
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
@@ -32,6 +33,8 @@ fun AddNewReceipt(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        BackButton("Add New Receipt",Modifier.padding(top = 10.dp)) {route -> onNavigate(route)}
+        Spacer(modifier = Modifier.height(15.dp))
         DocumentInputFields(
             date = date,
             onDateChange = { date = it },

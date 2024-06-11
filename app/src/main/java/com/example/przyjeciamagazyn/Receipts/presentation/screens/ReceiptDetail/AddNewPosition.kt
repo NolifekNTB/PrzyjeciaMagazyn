@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.przyjeciamagazyn.Core.presentation.BackButton
 import com.example.przyjeciamagazyn.Core.presentation.Screen
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
@@ -24,9 +25,11 @@ fun AddNewPosition(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(15.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        BackButton("Add new position",Modifier.padding(top = 5.dp)) {route -> onNavigate(route)}
+        Spacer(modifier = Modifier.height(15.dp))
         PositionInputFields(
             productName = productName,
             onProductNameChange = { productName = it },

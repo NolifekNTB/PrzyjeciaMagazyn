@@ -2,8 +2,10 @@ package com.example.przyjeciamagazyn.Receipts.presentation.screens
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -13,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.przyjeciamagazyn.Core.presentation.BackButton
 import com.example.przyjeciamagazyn.Core.presentation.EditScreens
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
 
@@ -21,7 +24,9 @@ fun DocumentPositionDetailScreen(receiptViewModel: ReceiptViewModel, onNavigate:
     val position = receiptViewModel.selectedDocumentPosition.collectAsState().value ?: return
     Log.d("testowanie", "Position after: $position")
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().padding(20.dp)) {
+        BackButton("Receipt position",Modifier.padding(top = 10.dp)) {route -> onNavigate(route)}
+        Spacer(modifier = Modifier.height(15.dp))
         Column {
             Text(text = "Nazwa towaru: ${position.productName}", fontSize = 18.sp)
             Text(text = "Jednostka miary: ${position.unit}", fontSize = 18.sp)
