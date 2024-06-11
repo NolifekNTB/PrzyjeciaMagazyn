@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
+import com.example.przyjeciamagazyn.Core.presentation.BackButton
 import com.example.przyjeciamagazyn.Core.presentation.Screen
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
 
@@ -35,6 +36,8 @@ fun EditContractorScreen(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        BackButton("Edit Contractor", Modifier.padding(10.dp)) {route -> onNavigate(route)}
+        Spacer(modifier = Modifier.height(10.dp))
         ContractorInputFields(
             symbol = symbol,
             onSymbolChange = { symbol = it },

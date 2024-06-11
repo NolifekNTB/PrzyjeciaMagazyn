@@ -3,8 +3,10 @@ package com.example.przyjeciamagazyn.Contractors.presentation.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
 import com.example.przyjeciamagazyn.Core.presentation.AddScreens
+import com.example.przyjeciamagazyn.Core.presentation.BackButton
 import com.example.przyjeciamagazyn.Core.presentation.EditScreens
 
 @Composable
@@ -29,6 +32,7 @@ fun ContractorListScreen(contractorViewModel: ContractorViewModel, onNavigate: (
     val contractorList = contractorViewModel.contractors.collectAsState(emptyList()).value
 
     Column(modifier = Modifier.fillMaxSize()) {
+        BackButton("Contractors list", Modifier.padding(top = 20.dp, start = 15.dp)) {route -> onNavigate(route)}
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(contractorList) { contractor ->
                 ContractorRow(contractor, contractorViewModel) {route -> onNavigate(route)}

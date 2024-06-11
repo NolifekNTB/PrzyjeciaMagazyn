@@ -1,5 +1,6 @@
 package com.example.przyjeciamagazyn.Core.presentation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -59,7 +60,10 @@ fun NavigationNavGraph(navController: NavHostController) {
         }
 
         composable(route = AddScreens.AddDocumentSheet.route) {
-            AddNewReceipt(contractorViewModel, receiptViewModel) { route -> navController.navigate(route) }
+            AddNewReceipt(contractorViewModel, receiptViewModel) { route ->
+                if (route == "back") navController.popBackStack()
+                else navController.navigate(route)
+            }
         }
 
         composable(route = EditScreens.EditDocumentSheet.route) {
@@ -87,15 +91,24 @@ fun NavigationNavGraph(navController: NavHostController) {
         ////////////////////////////////////////////////////////////////////////////////
 
         composable(route = Screen.ContractorListScreen.route) {
-            ContractorListScreen(contractorViewModel) { route -> navController.navigate(route) }
+            ContractorListScreen(contractorViewModel) { route ->
+                if (route == "back") navController.popBackStack()
+                else navController.navigate(route)
+            }
         }
 
         composable(route = AddScreens.AddContractorSheet.route) {
-            AddNewContractor(contractorViewModel = contractorViewModel) { route -> navController.navigate(route) }
+            AddNewContractor(contractorViewModel = contractorViewModel) { route ->
+                if (route == "back") navController.popBackStack()
+                else navController.navigate(route)
+            }
         }
 
         composable(route = EditScreens.EditContractorSheet.route) {
-            EditContractorScreen(contractorViewModel) { route -> navController.navigate(route) }
+            EditContractorScreen(contractorViewModel) { route ->
+                if (route == "back") navController.popBackStack()
+                else navController.navigate(route)
+            }
         }
 
     }
