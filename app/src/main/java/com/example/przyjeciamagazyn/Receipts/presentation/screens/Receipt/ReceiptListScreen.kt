@@ -46,6 +46,7 @@ import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
 import com.example.przyjeciamagazyn.Core.presentation.BackButton
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
+import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
 import com.example.przyjeciamagazyn.R
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
@@ -63,14 +64,7 @@ fun ReceiptListScreen(receiptViewModel: ReceiptViewModel, onNavigate: (String) -
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Receipt List") },
-                navigationIcon = {
-                    IconButton(onClick = { onNavigate("back_route") }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                }
-            )
+            topAppBarBack("Receipt List") { route -> onNavigate(route)}
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { onNavigate(AddScreens.AddDocumentSheet.route) }) {
