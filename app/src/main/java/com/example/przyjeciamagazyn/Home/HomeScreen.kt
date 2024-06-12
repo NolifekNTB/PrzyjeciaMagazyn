@@ -44,7 +44,6 @@ fun HomeScreen(onNavigate: (String) -> Unit) {
         ) {
             Text(text = "Lista Dokumentów", fontSize = 18.sp)
         }
-        Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = { onNavigate(Screen.ContractorListScreen.route) },
             modifier = Modifier

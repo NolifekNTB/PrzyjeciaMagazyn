@@ -1,15 +1,18 @@
 package com.example.przyjeciamagazyn.Contractors.presentation.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
-import com.example.przyjeciamagazyn.Core.presentation.BackButton
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
+import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
 
 @Composable
 fun EditContractorScreen(
@@ -28,35 +31,44 @@ fun EditContractorScreen(
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        BackButton("Edit Contractor", Modifier.padding(10.dp)) {route -> onNavigate(route)}
-        Spacer(modifier = Modifier.height(10.dp))
-        ContractorInputFields(
-            symbol = symbol,
-            onSymbolChange = { symbol = it },
-            name = name,
-            onNameChange = { name = it }
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = {
-                if (symbol.isNotEmpty() && name.isNotEmpty() && contractor != null) {
-                    val updatedContractor = Contractor(
-                        id = contractor.id,
-                        symbol = symbol,
-                        name = name
-                    )
-                    contractorViewModel.updateContractor(updatedContractor)
-                    onNavigate(Screen.ContractorListScreen.route)
+    Scaffold(
+        topBar = {
+            topAppBarBack(nameOfTheScreen = "Edit Contractor") { route -> onNavigate(route) }
+        },
+        content = { padding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                ContractorInputFields(
+                    symbol = symbol,
+                    onSymbolChange = { symbol = it },
+                    name = name,
+                    onNameChange = { name = it }
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = {
+                        if (symbol.isNotEmpty() && name.isNotEmpty() && contractor != null) {
+                            val updatedContractor = Contractor(
+                                id = contractor.id,
+                                symbol = symbol,
+                                name = name
+                            )
+                            contractorViewModel.updateContractor(updatedContractor)
+                            onNavigate(Screen.ContractorListScreen.route)
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                ) {
+                    Text("Update Contractor")
                 }
             }
-        ) {
-            Text("Update Contractor")
         }
-    }
+    )
 }
