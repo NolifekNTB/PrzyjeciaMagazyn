@@ -28,35 +28,35 @@ class DocumentViewModel @Inject constructor(
     }
 
     fun insertReceipt(receipt: Document) = viewModelScope.launch {
-        repository.insertReceipt(receipt)
+        repository.insertDocument(receipt)
     }
 
     fun getALlReceipts() {
         viewModelScope.launch {
-            val result = repository.getAllReceipts().first()
+            val result = repository.getAllDocuments().first()
             _receiptDocuments.value = result
         }
     }
 
     fun deleteAllReceipts() = viewModelScope.launch {
-        repository.deleteAllReceipts()
+        repository.deleteAllDocuments()
     }
 
     fun insertReceiptPosition(position: DocumentPosition) = viewModelScope.launch {
-        repository.insertReceiptPosition(position)
+        repository.insertPosition(position)
         refreshReceiptPositions(position.receiptId)
     }
 
 
     fun updateReceipt(updatedReceipt: Document) {
         viewModelScope.launch {
-            repository.updateReceipt(updatedReceipt)
+            repository.updateDocument(updatedReceipt)
         }
     }
 
     fun updateReceiptPosition(position: DocumentPosition){
         viewModelScope.launch {
-            repository.updateReceiptPosition(position)
+            repository.updatePosition(position)
             refreshReceiptPositions(position.receiptId)
             refreshPosition(position.id)
         }
@@ -64,15 +64,15 @@ class DocumentViewModel @Inject constructor(
 
     fun refreshReceiptPositions(receiptId: Int) {
         viewModelScope.launch {
-            val positions = repository.getPositionsForReceipt(receiptId).first()
-            repository.updateReceiptPositions(selectedDocument.value!!.id, positions)
+            val positions = repository.getPositionsForDocument(receiptId).first()
+            repository.updateDocumentPositions(selectedDocument.value!!.id, positions)
             updatedReceipt(receiptId)
         }
     }
 
     fun updatedReceipt(receiptId: Int) {
         viewModelScope.launch {
-            val receipt = repository.getReceipt(receiptId).first()
+            val receipt = repository.getDocument(receiptId).first()
             selectedDocument.value = receipt
         }
     }

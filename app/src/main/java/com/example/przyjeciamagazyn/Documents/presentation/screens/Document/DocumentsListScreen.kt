@@ -31,13 +31,13 @@ import androidx.compose.ui.unit.dp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
-import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
+import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 import com.example.przyjeciamagazyn.Documents.data.model.Document
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReceiptListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit, ) {
+fun DocumentListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit, ) {
     val documents = receiptViewModel.receiptDocuments.collectAsState(emptyList()).value
     val selectedDocument = receiptViewModel.selectedDocument
 
@@ -47,10 +47,10 @@ fun ReceiptListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) 
 
     Scaffold(
         topBar = {
-            topAppBarBack("Receipt List") { route -> onNavigate(route)}
+            TopAppBarBack("Receipt List") { route -> onNavigate(route)}
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { onNavigate(AddScreens.AddDocumentSheet.route) }) {
+            FloatingActionButton(onClick = { onNavigate(AddScreens.AddDocumentScreen.route) }) {
                 Icon(Icons.Default.Add, contentDescription = "Add Document")
             }
         },
@@ -63,7 +63,7 @@ fun ReceiptListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) 
                       items(documents) { receiptDocument ->
                             DocumentRow(receiptDocument) { document ->
                                 selectedDocument.value = document
-                                onNavigate(Screen.DocumentDetailScreen.route)
+                                onNavigate(Screen.PositionsListScreen.route)
                             }
                     }
                 }

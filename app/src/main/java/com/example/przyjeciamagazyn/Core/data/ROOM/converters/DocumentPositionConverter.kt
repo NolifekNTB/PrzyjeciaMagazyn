@@ -6,17 +6,20 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class DocumentPositionConverter {
+    private val gson = Gson()
+    private val type = object : TypeToken<List<DocumentPosition>>() {}.type
+
     @TypeConverter
     fun fromPositionList(position: List<DocumentPosition>): String {
-        val gson = Gson()
-        val type = object : TypeToken<List<DocumentPosition>>() {}.type
         return gson.toJson(position, type)
     }
 
     @TypeConverter
     fun toPositionList(positionString: String): List<DocumentPosition> {
-        val gson = Gson()
-        val type = object : TypeToken<List<DocumentPosition>>() {}.type
-        return gson.fromJson(positionString, type)
+        return if (positionString.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            gson.fromJson(positionString, type)
+        }
     }
 }

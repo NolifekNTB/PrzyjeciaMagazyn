@@ -8,12 +8,12 @@ import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.EditScreens
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
-import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.DocumentPositionDetailScreen
-import com.example.przyjeciamagazyn.Documents.presentation.screens.Document.AddNewReceipt
-import com.example.przyjeciamagazyn.Documents.presentation.screens.Document.EditReceiptDocumentScreen
-import com.example.przyjeciamagazyn.Documents.presentation.screens.Document.ReceiptListScreen
-import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.AddNewPosition
-import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.DocumentPositionsList
+import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.PositionDetailScreen
+import com.example.przyjeciamagazyn.Documents.presentation.screens.Document.AddDocumentScreen
+import com.example.przyjeciamagazyn.Documents.presentation.screens.Document.EditDocumentScreen
+import com.example.przyjeciamagazyn.Documents.presentation.screens.Document.DocumentListScreen
+import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.AddPositionScreen
+import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.PositionsListScreen
 import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.EditPositionScreen
 
 fun NavGraphBuilder.documentGraph(
@@ -22,45 +22,43 @@ fun NavGraphBuilder.documentGraph(
     receiptViewModel: DocumentViewModel
 ) {
     composable(route = Screen.DocumentListScreen.route) {
-        ReceiptListScreen(receiptViewModel) { route ->
-            if (route == "back") navController.popBackStack()
-            else navController.navigate(route)
+        DocumentListScreen(receiptViewModel) { route ->
+            handleNavigation(navController, route)
         }
     }
-    composable(route = AddScreens.AddDocumentSheet.route) {
-        AddNewReceipt(contractorViewModel, receiptViewModel) { route ->
-            if (route == "back") navController.popBackStack()
-            else navController.navigate(route)
+    composable(route = AddScreens.AddDocumentScreen.route) {
+        AddDocumentScreen(contractorViewModel, receiptViewModel) { route ->
+            handleNavigation(navController, route)
         }
     }
-    composable(route = EditScreens.EditDocumentSheet.route) {
-        EditReceiptDocumentScreen(contractorViewModel, receiptViewModel) { route ->
-            if (route == "back") navController.popBackStack()
-            else navController.navigate(route)
+    composable(route = EditScreens.EditDocumentScreen.route) {
+        EditDocumentScreen(contractorViewModel, receiptViewModel) { route ->
+            handleNavigation(navController, route)
         }
     }
-    composable(route = Screen.DocumentDetailScreen.route) {
-        DocumentPositionsList(receiptViewModel) { route ->
-            if (route == "back") navController.popBackStack()
-            else navController.navigate(route)
+    composable(route = Screen.PositionsListScreen.route) {
+        PositionsListScreen(receiptViewModel) { route ->
+            handleNavigation(navController, route)
         }
     }
-    composable(route = AddScreens.AddPositionSheet.route) {
-        AddNewPosition(receiptViewModel = receiptViewModel) { route ->
-            if (route == "back") navController.popBackStack()
-            else navController.navigate(route)
+    composable(route = AddScreens.AddPositionScreen.route) {
+        AddPositionScreen(receiptViewModel = receiptViewModel) { route ->
+            handleNavigation(navController, route)
         }
     }
-    composable(route = Screen.DocumentPositionDetailScreen.route) {
-        DocumentPositionDetailScreen(receiptViewModel) { route ->
-            if (route == "back") navController.popBackStack()
-            else navController.navigate(route)
-        }
-    }
-    composable(route = EditScreens.EditPositionSheet.route) {
+    composable(route = EditScreens.EditPositionScreen.route) {
         EditPositionScreen(receiptViewModel) { route ->
-            if (route == "back") navController.popBackStack()
-            else navController.navigate(route)
+            handleNavigation(navController, route)
         }
     }
+    composable(route = Screen.PositionDetailScreen.route) {
+        PositionDetailScreen(receiptViewModel) { route ->
+            handleNavigation(navController, route)
+        }
+    }
+}
+
+private fun handleNavigation(navController: NavHostController, route: String) {
+    if (route == "back") navController.popBackStack()
+    else navController.navigate(route)
 }

@@ -4,7 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
-import com.example.przyjeciamagazyn.Contractors.presentation.screens.AddNewContractor
+import com.example.przyjeciamagazyn.Contractors.presentation.screens.AddContractorScreen
 import com.example.przyjeciamagazyn.Contractors.presentation.screens.ContractorListScreen
 import com.example.przyjeciamagazyn.Contractors.presentation.screens.EditContractorScreen
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
@@ -17,20 +17,22 @@ fun NavGraphBuilder.contractorGraph(
 ) {
     composable(route = Screen.ContractorListScreen.route) {
         ContractorListScreen(contractorViewModel) { route ->
-            if (route == "back") navController.popBackStack()
-            else navController.navigate(route)
+            handleNavigation(navController, route)
         }
     }
-    composable(route = AddScreens.AddContractorSheet.route) {
-        AddNewContractor(contractorViewModel = contractorViewModel) { route ->
-            if (route == "back") navController.popBackStack()
-            else navController.navigate(route)
+    composable(route = AddScreens.AddContractorScreen.route) {
+        AddContractorScreen(contractorViewModel = contractorViewModel) { route ->
+            handleNavigation(navController, route)
         }
     }
-    composable(route = EditScreens.EditContractorSheet.route) {
+    composable(route = EditScreens.EditContractorScreen.route) {
         EditContractorScreen(contractorViewModel) { route ->
-            if (route == "back") navController.popBackStack()
-            else navController.navigate(route)
+            handleNavigation(navController, route)
         }
     }
+}
+
+private fun handleNavigation(navController: NavHostController, route: String) {
+    if (route == "back") navController.popBackStack()
+    else navController.navigate(route)
 }

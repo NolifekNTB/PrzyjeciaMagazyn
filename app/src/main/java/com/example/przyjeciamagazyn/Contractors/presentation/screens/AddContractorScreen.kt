@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
-import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
+import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 
 @Composable
-fun AddNewContractor(
+fun AddContractorScreen(
     contractorViewModel: ContractorViewModel,
     onNavigate: (String) -> Unit
 ) {
@@ -23,7 +23,7 @@ fun AddNewContractor(
 
     Scaffold(
         topBar = {
-            topAppBarBack(nameOfTheScreen = "Add New Contractor") { route -> onNavigate(route) }
+            TopAppBarBack(screenTitle = "Add New Contractor") { route -> onNavigate(route) }
         },
         content = { padding ->
             Column(

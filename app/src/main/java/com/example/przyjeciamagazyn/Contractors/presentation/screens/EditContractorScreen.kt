@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
-import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
+import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 
 @Composable
 fun EditContractorScreen(
@@ -31,7 +31,7 @@ fun EditContractorScreen(
 
     Scaffold(
         topBar = {
-            topAppBarBack(nameOfTheScreen = "Edit Contractor") { route -> onNavigate(route) }
+            TopAppBarBack(screenTitle = "Edit Contractor") { route -> onNavigate(route) }
         },
         content = { padding ->
             Column(

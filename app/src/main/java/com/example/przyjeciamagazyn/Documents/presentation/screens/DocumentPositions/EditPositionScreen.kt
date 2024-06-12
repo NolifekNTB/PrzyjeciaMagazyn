@@ -22,7 +22,7 @@ import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.unit.sp
-import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
+import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 
 
 @Composable
@@ -46,7 +46,7 @@ fun EditPositionScreen(
 
     Scaffold(
         topBar = {
-            topAppBarBack("Edit Receipt Position") { route -> onNavigate(route) }
+            TopAppBarBack("Edit Receipt Position") { route -> onNavigate(route) }
         },
         content = { padding ->
             Column(

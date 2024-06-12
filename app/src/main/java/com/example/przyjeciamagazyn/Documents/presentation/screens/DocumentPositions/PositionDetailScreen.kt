@@ -18,15 +18,15 @@ import com.example.przyjeciamagazyn.Core.presentation.Navigation.EditScreens
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 import androidx.compose.material.*
 import androidx.compose.material3.*
-import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
+import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 
 @Composable
-fun DocumentPositionDetailScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
+fun PositionDetailScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
     val position = receiptViewModel.selectedDocumentPosition.collectAsState().value ?: return
 
     Scaffold(
         topBar = {
-            topAppBarBack("Receipt Position") { route -> onNavigate(route) }
+            TopAppBarBack("Receipt Position") { route -> onNavigate(route) }
         },
         content = { padding ->
             Column(
@@ -54,7 +54,7 @@ fun DocumentPositionDetailScreen(receiptViewModel: DocumentViewModel, onNavigate
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
-                    onClick = { onNavigate(EditScreens.EditPositionSheet.route) },
+                    onClick = { onNavigate(EditScreens.EditPositionScreen.route) },
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .fillMaxWidth()

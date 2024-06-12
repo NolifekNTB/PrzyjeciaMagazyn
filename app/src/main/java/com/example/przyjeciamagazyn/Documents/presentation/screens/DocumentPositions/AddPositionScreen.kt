@@ -10,12 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
+import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
-fun AddNewPosition(
+fun AddPositionScreen(
     receiptViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
@@ -26,7 +26,7 @@ fun AddNewPosition(
 
     Scaffold(
         topBar = {
-            topAppBarBack("Add New Position") { route -> onNavigate(route) }
+            TopAppBarBack("Add New Position") { route -> onNavigate(route) }
         },
         content = { padding ->
             Column(

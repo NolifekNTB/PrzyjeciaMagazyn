@@ -6,17 +6,20 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class ContractorConverter {
+    private val gson = Gson()
+    private val type = object : TypeToken<List<Contractor>>() {}.type
+
     @TypeConverter
-    fun fromContractor(contractor: List<Contractor>): String {
-        val gson = Gson()
-        val type = object : TypeToken<List<Contractor>>() {}.type
-        return gson.toJson(contractor, type)
+    fun fromContractor(contractors: List<Contractor>): String {
+        return gson.toJson(contractors, type)
     }
 
     @TypeConverter
     fun toContractor(contractorString: String?): List<Contractor?> {
-        val gson = Gson()
-        val type = object : TypeToken<List<Contractor>>() {}.type
-        return gson.fromJson(contractorString, type)
+        return if (contractorString.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            gson.fromJson(contractorString, type)
+        }
     }
 }

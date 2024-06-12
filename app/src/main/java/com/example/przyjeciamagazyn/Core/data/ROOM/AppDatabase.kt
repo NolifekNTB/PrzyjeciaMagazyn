@@ -14,15 +14,18 @@ import com.example.przyjeciamagazyn.Core.data.ROOM.dao.DocumentPositionDao
 import com.example.przyjeciamagazyn.Documents.data.model.Document
 import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
 
-@Database(entities = [
-    Document::class,
-    DocumentPosition::class,
-    Contractor::class],
-    version = 1)
+@Database(
+    entities = [
+        Document::class,
+        DocumentPosition::class,
+        Contractor::class
+               ],
+    version = 1
+)
 @TypeConverters(DocumentPositionConverter::class, ContractorConverter::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun receiptDao(): DocumentDao
-    abstract fun receiptPositionDao(): DocumentPositionDao
+    abstract fun documentDao(): DocumentDao
+    abstract fun documentPositionDao(): DocumentPositionDao
     abstract fun contractorDao(): ContractorDao
 
 
@@ -33,9 +36,8 @@ abstract class AppDatabase : RoomDatabase() {
             if (db == null) {
                 db = Room.databaseBuilder(
                     context,
-                    AppDatabase::class.java, "anime-database.db"
-                )
-                    .build()
+                    AppDatabase::class.java, "przyjeciamagazyn.db"
+                ).build()
             }
 
             return db!!

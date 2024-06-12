@@ -21,14 +21,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
-import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
+import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 import com.example.przyjeciamagazyn.R
 import com.example.przyjeciamagazyn.Documents.data.model.Document
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddNewReceipt(
+fun AddDocumentScreen(
     contractorViewModel: ContractorViewModel,
     receiptViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
@@ -41,7 +41,7 @@ fun AddNewReceipt(
 
     Scaffold(
         topBar = {
-            topAppBarBack("Add New Receipt") { route -> onNavigate(route)}
+            TopAppBarBack("Add New Receipt") { route -> onNavigate(route)}
         },
         content = { paddingValues ->
             Column(

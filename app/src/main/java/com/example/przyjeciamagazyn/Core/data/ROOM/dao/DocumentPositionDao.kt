@@ -9,15 +9,15 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DocumentPositionDao {
-    @Query("SELECT * FROM receipt_positions WHERE receiptId = :receiptId")
-    fun getPositionsForReceipt(receiptId: Int): Flow<List<DocumentPosition>>
-
-    @Insert
-    suspend fun insertReceiptPosition(position: DocumentPosition)
-
-    @Update
-    suspend fun updateReceiptPosition(position: DocumentPosition)
-
     @Query("SELECT * FROM receipt_positions WHERE id = :id")
     fun getPosition(id: Int): Flow<DocumentPosition>
+
+    @Query("SELECT * FROM receipt_positions WHERE receiptId = :receiptId")
+    fun getPositionsForDocument(receiptId: Int): Flow<List<DocumentPosition>>
+
+    @Insert
+    suspend fun insertPosition(position: DocumentPosition)
+
+    @Update
+    suspend fun updatePosition(position: DocumentPosition)
 }

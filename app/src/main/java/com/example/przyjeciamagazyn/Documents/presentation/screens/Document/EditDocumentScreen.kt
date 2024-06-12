@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
-import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
+import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 import com.example.przyjeciamagazyn.Documents.data.model.Document
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
-fun EditReceiptDocumentScreen(
+fun EditDocumentScreen(
     contractorViewModel: ContractorViewModel,
     receiptViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
@@ -50,7 +50,7 @@ fun EditReceiptDocumentScreen(
 
     Scaffold(
         topBar = {
-            topAppBarBack("Edit Receipt") { route -> onNavigate(route) }
+            TopAppBarBack("Edit Receipt") { route -> onNavigate(route) }
         },
         content = { padding ->
             Column(

@@ -23,16 +23,16 @@ import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.EditScreens
 import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
-import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
+import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
-fun DocumentPositionsList(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
+fun PositionsListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
     val receipt = receiptViewModel.selectedDocument.collectAsState().value ?: return
 
     Scaffold(
         topBar = {
-            topAppBarBack("Receipt Positions") { route -> onNavigate(route) }
+            TopAppBarBack("Receipt Positions") { route -> onNavigate(route) }
         },
         content = { padding ->
             Column(
@@ -51,14 +51,14 @@ fun DocumentPositionsList(receiptViewModel: DocumentViewModel, onNavigate: (Stri
                     items(receipt.positions) { position ->
                         DocumentPositionRow(position) { receiptPosition ->
                             receiptViewModel.selectedDocumentPosition.value = receiptPosition
-                            onNavigate(Screen.DocumentPositionDetailScreen.route)
+                            onNavigate(Screen.PositionDetailScreen.route)
                         }
                     }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
-                    onClick = { onNavigate(EditScreens.EditDocumentSheet.route) },
+                    onClick = { onNavigate(EditScreens.EditDocumentScreen.route) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 8.dp)
@@ -67,7 +67,7 @@ fun DocumentPositionsList(receiptViewModel: DocumentViewModel, onNavigate: (Stri
                 }
 
                 Button(
-                    onClick = { onNavigate(AddScreens.AddPositionSheet.route) },
+                    onClick = { onNavigate(AddScreens.AddPositionScreen.route) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 8.dp)

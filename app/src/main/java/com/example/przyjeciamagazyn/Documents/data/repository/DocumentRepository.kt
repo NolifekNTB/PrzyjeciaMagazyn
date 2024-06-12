@@ -10,50 +10,50 @@ import kotlinx.coroutines.flow.Flow
 
 
 class DocumentRepository(context: Context): DocumentDao, DocumentPositionDao {
-    private val receipt = AppDatabase.getInstance(context).receiptDao()
-    private val receiptPosition = AppDatabase.getInstance(context).receiptPositionDao()
+    private val receipt = AppDatabase.getInstance(context).documentDao()
+    private val receiptPosition = AppDatabase.getInstance(context).documentPositionDao()
 
-    override fun getAllReceipts(): Flow<List<Document>>  {
-        return receipt.getAllReceipts()
+    override fun getAllDocuments(): Flow<List<Document>>  {
+        return receipt.getAllDocuments()
     }
 
-    override fun getPositionsForReceipt(receiptId: Int): Flow<List<DocumentPosition>> {
-        return receiptPosition.getPositionsForReceipt(receiptId)
+    override fun getPositionsForDocument(receiptId: Int): Flow<List<DocumentPosition>> {
+        return receiptPosition.getPositionsForDocument(receiptId)
     }
 
-    override suspend fun insertReceipt(receiptDocument: Document) {
-        receipt.insertReceipt(receiptDocument)
+    override suspend fun insertDocument(receiptDocument: Document) {
+        receipt.insertDocument(receiptDocument)
     }
 
-    override suspend fun insertReceiptPosition(position: DocumentPosition) {
-        receiptPosition.insertReceiptPosition(position)
+    override suspend fun insertPosition(position: DocumentPosition) {
+        receiptPosition.insertPosition(position)
     }
 
-    override suspend fun updateReceiptPosition(position: DocumentPosition) {
-        receiptPosition.updateReceiptPosition(position)
+    override suspend fun updatePosition(position: DocumentPosition) {
+        receiptPosition.updatePosition(position)
     }
 
     override fun getPosition(id: Int): Flow<DocumentPosition> {
         return receiptPosition.getPosition(id)
     }
 
-    override suspend fun deleteAllReceipts() {
-        receipt.deleteAllReceipts()
+    override suspend fun deleteAllDocuments() {
+        receipt.deleteAllDocuments()
     }
 
-    override suspend fun updateReceiptPositions(id: Int, positions: List<DocumentPosition>) {
-        receipt.updateReceiptPositions(id, positions)
+    override suspend fun updateDocumentPositions(id: Int, positions: List<DocumentPosition>) {
+        receipt.updateDocumentPositions(id, positions)
     }
 
-    override suspend fun updateReceipt(updatedReceipt: Document) {
-        receipt.updateReceipt(updatedReceipt)
+    override suspend fun updateDocument(updatedReceipt: Document) {
+        receipt.updateDocument(updatedReceipt)
     }
 
-    override fun getReceipt(id: Int): Flow<Document> {
-        return receipt.getReceipt(id)
+    override fun getDocument(id: Int): Flow<Document> {
+        return receipt.getDocument(id)
     }
 
-    override fun getReceiptsContainingContractor(contractorId: Int): Flow<List<Document>> {
-        return receipt.getReceiptsContainingContractor(contractorId)
+    override fun getDocumentsContainingContractor(contractorId: Int): Flow<List<Document>> {
+        return receipt.getDocumentsContainingContractor(contractorId)
     }
 }

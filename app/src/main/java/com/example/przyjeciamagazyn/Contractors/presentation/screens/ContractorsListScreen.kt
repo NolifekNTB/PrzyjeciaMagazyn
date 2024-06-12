@@ -25,7 +25,7 @@ import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.EditScreens
-import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
+import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 
 @Composable
 fun ContractorListScreen(contractorViewModel: ContractorViewModel, onNavigate: (String) -> Unit) {
@@ -33,11 +33,11 @@ fun ContractorListScreen(contractorViewModel: ContractorViewModel, onNavigate: (
 
     Scaffold(
         topBar = {
-            topAppBarBack(nameOfTheScreen = "Contractors list") { route -> onNavigate(route) }
+            TopAppBarBack(screenTitle = "Contractors list") { route -> onNavigate(route) }
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onNavigate(AddScreens.AddContractorSheet.route) },
+                onClick = { onNavigate(AddScreens.AddContractorScreen.route) },
                 modifier = Modifier.padding(16.dp)
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add Contractor")
@@ -65,7 +65,7 @@ fun ContractorRow(contractor: Contractor, contractorViewModel: ContractorViewMod
             .padding(8.dp)
             .clickable {
                 contractorViewModel.selectContractor(contractor)
-                onNavigate(EditScreens.EditContractorSheet.route)
+                onNavigate(EditScreens.EditContractorScreen.route)
             },
         elevation = CardDefaults.elevatedCardElevation(4.dp)
     ) {

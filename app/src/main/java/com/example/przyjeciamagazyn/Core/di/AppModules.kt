@@ -12,10 +12,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 
-object AppModule {
+object AppModules {
     @Provides
     @Singleton
-    fun provideContextReceiptRepository(app: Application): DocumentRepository {
+    fun provideContextDocumentRepository(app: Application): DocumentRepository {
         return DocumentRepository(app.applicationContext)
     }
 

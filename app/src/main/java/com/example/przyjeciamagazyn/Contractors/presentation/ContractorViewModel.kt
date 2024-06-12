@@ -29,14 +29,14 @@ class ContractorViewModel @Inject constructor (
 
     private fun updateReceiptsWithContractor(updatedContractor: Contractor) {
         viewModelScope.launch {
-            val receipts = receiptRepository.getReceiptsContainingContractor(updatedContractor.id).first()
+            val receipts = receiptRepository.getDocumentsContainingContractor(updatedContractor.id).first()
 
             receipts.forEach { receipt ->
                 val updatedContractors = receipt.contractors.map {
                     if (it.id == updatedContractor.id) updatedContractor else it
                 }
                 val updatedReceipt = receipt.copy(contractors = updatedContractors)
-                receiptRepository.updateReceipt(updatedReceipt)
+                receiptRepository.updateDocument(updatedReceipt)
             }
         }
     }
