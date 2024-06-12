@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +20,17 @@ import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
 
 @Composable
 fun HomeScreen(onNavigate: (String) -> Unit) {
+    HomeScreenContent(
+        onDocumentListClick = { onNavigate(Screen.DocumentListScreen.route) },
+        onContractorListClick = { onNavigate(Screen.ContractorListScreen.route) }
+    )
+}
+
+@Composable
+fun HomeScreenContent(
+    onDocumentListClick: () -> Unit,
+    onContractorListClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -29,28 +38,37 @@ fun HomeScreen(onNavigate: (String) -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Przyjecia Magazyn",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        )
+        TitleText(text = "Przyjecia Magazyn")
         Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = { onNavigate(Screen.ReceiptDocumentScreen.route) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-        ) {
-            Text(text = "Lista Dokumentów", fontSize = 18.sp)
-        }
-        Button(
-            onClick = { onNavigate(Screen.ContractorListScreen.route) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-        ) {
-            Text(text = "Kontrahenci", fontSize = 18.sp)
-        }
+        ActionButton(
+            text = "Lista Dokumentów",
+            onClick = onDocumentListClick
+        )
+        ActionButton(
+            text = "Kontrahenci",
+            onClick = onContractorListClick
+        )
+    }
+}
+
+@Composable
+fun TitleText(text: String) {
+    Text(
+        text = text,
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Bold,
+        color = Color.Black
+    )
+}
+
+@Composable
+fun ActionButton(text: String, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        Text(text = text, fontSize = 18.sp)
     }
 }

@@ -21,7 +21,7 @@ fun NavGraphBuilder.documentGraph(
     contractorViewModel: ContractorViewModel,
     receiptViewModel: DocumentViewModel
 ) {
-    composable(route = Screen.ReceiptDocumentScreen.route) {
+    composable(route = Screen.DocumentListScreen.route) {
         ReceiptListScreen(receiptViewModel) { route ->
             if (route == "back") navController.popBackStack()
             else navController.navigate(route)
