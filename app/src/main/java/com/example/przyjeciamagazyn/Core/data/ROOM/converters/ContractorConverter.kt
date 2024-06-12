@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.Core.data.ROOM.Converter
+package com.example.przyjeciamagazyn.Core.data.ROOM.converters
 
 import androidx.room.TypeConverter
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor

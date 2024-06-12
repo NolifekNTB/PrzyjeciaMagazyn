@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt
+package com.example.przyjeciamagazyn.Documents.presentation.screens.Document
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.DropdownMenu
@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -18,22 +17,20 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
-import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
 import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
 import com.example.przyjeciamagazyn.R
-import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
-import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
+import com.example.przyjeciamagazyn.Documents.data.model.Document
+import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNewReceipt(
     contractorViewModel: ContractorViewModel,
-    receiptViewModel: ReceiptViewModel,
+    receiptViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
     var date by remember { mutableStateOf("") }
@@ -168,13 +165,13 @@ fun AddDocumentButton(
     date: String,
     symbol: String,
     selectedContractors: List<Contractor>,
-    receiptViewModel: ReceiptViewModel,
+    receiptViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
     Button(
         onClick = {
             if (date.isNotEmpty() && symbol.isNotEmpty() && selectedContractors.isNotEmpty()) {
-                val newDocument = ReceiptDocument(
+                val newDocument = Document(
                     date = date,
                     symbol = symbol,
                     contractors = selectedContractors,

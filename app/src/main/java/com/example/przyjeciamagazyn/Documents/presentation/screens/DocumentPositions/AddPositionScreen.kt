@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail
+package com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -10,14 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
 import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
-import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
-import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
+import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
+import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
 fun AddNewPosition(
-    receiptViewModel: ReceiptViewModel,
+    receiptViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
     val receiptId  = receiptViewModel.selectedDocument.collectAsState().value?.id ?: 0
@@ -96,7 +95,7 @@ fun AddPositionButton(
     unit: String,
     quantity: String,
     receiptId: Int,
-    receiptViewModel: ReceiptViewModel,
+    receiptViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
     val isQuantityValid = quantity.toIntOrNull() != null
@@ -104,7 +103,7 @@ fun AddPositionButton(
     Button(
         onClick = {
             if (productName.isNotEmpty() && unit.isNotEmpty() && isQuantityValid) {
-                val newPosition = ReceiptPosition(
+                val newPosition = DocumentPosition(
                     productName = productName,
                     receiptId = receiptId,
                     unit = unit,

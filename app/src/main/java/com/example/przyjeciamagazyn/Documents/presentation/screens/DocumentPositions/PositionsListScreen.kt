@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail
+package com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -16,20 +16,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
-import com.example.przyjeciamagazyn.Core.presentation.BackButton
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.EditScreens
-import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
+import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
 import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
-import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
+import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
-fun DocumentPositionsList(receiptViewModel: ReceiptViewModel, onNavigate: (String) -> Unit) {
+fun DocumentPositionsList(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
     val receipt = receiptViewModel.selectedDocument.collectAsState().value ?: return
 
     Scaffold(
@@ -82,7 +80,7 @@ fun DocumentPositionsList(receiptViewModel: ReceiptViewModel, onNavigate: (Strin
 }
 
 @Composable
-fun DocumentPositionRow(position: ReceiptPosition, onNavigate: (ReceiptPosition) -> Unit) {
+fun DocumentPositionRow(position: DocumentPosition, onNavigate: (DocumentPosition) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

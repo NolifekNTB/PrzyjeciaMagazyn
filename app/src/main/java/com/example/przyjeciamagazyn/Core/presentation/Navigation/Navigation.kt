@@ -8,11 +8,11 @@ import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Graphs.contractorGraph
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Graphs.documentGraph
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Graphs.homeGraph
-import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
+import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
 fun NavigationNavGraph(navController: NavHostController) {
-    val receiptViewModel = hiltViewModel<ReceiptViewModel>()
+    val receiptViewModel = hiltViewModel<DocumentViewModel>()
     val contractorViewModel = hiltViewModel<ContractorViewModel>()
 
     NavHost(

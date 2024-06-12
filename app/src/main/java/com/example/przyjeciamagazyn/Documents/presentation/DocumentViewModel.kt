@@ -1,12 +1,10 @@
-package com.example.przyjeciamagazyn.Receipts.presentation
+package com.example.przyjeciamagazyn.Documents.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
-import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
-import com.example.przyjeciamagazyn.Receipts.data.repository.ReceiptRepository
+import com.example.przyjeciamagazyn.Documents.data.model.Document
+import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
+import com.example.przyjeciamagazyn.Documents.data.repository.DocumentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,21 +13,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ReceiptViewModel @Inject constructor(
-    private val repository: ReceiptRepository,
+class DocumentViewModel @Inject constructor(
+    private val repository: DocumentRepository,
 ): ViewModel() {
-    private var _receiptDocuments = MutableStateFlow<List<ReceiptDocument>>(emptyList())
-    var receiptDocuments: Flow<List<ReceiptDocument>> = _receiptDocuments
+    private var _receiptDocuments = MutableStateFlow<List<Document>>(emptyList())
+    var receiptDocuments: Flow<List<Document>> = _receiptDocuments
 
-    var selectedDocument = MutableStateFlow<ReceiptDocument?>(null)
-    var selectedDocumentPosition = MutableStateFlow<ReceiptPosition?>(null)
+    var selectedDocument = MutableStateFlow<Document?>(null)
+    var selectedDocumentPosition = MutableStateFlow<DocumentPosition?>(null)
 
     init {
         //insertReceipt(sampleDocuments[1])
         getALlReceipts()
     }
 
-    fun insertReceipt(receipt: ReceiptDocument) = viewModelScope.launch {
+    fun insertReceipt(receipt: Document) = viewModelScope.launch {
         repository.insertReceipt(receipt)
     }
 
@@ -44,19 +42,19 @@ class ReceiptViewModel @Inject constructor(
         repository.deleteAllReceipts()
     }
 
-    fun insertReceiptPosition(position: ReceiptPosition) = viewModelScope.launch {
+    fun insertReceiptPosition(position: DocumentPosition) = viewModelScope.launch {
         repository.insertReceiptPosition(position)
         refreshReceiptPositions(position.receiptId)
     }
 
 
-    fun updateReceipt(updatedReceipt: ReceiptDocument) {
+    fun updateReceipt(updatedReceipt: Document) {
         viewModelScope.launch {
             repository.updateReceipt(updatedReceipt)
         }
     }
 
-    fun updateReceiptPosition(position: ReceiptPosition){
+    fun updateReceiptPosition(position: DocumentPosition){
         viewModelScope.launch {
             repository.updateReceiptPosition(position)
             refreshReceiptPositions(position.receiptId)

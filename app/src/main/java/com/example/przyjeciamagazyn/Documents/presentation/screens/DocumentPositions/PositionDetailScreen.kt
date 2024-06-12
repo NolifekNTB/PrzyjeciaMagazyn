@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail
+package com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,13 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.EditScreens
-import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
+import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 import androidx.compose.material.*
 import androidx.compose.material3.*
 import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
 
 @Composable
-fun DocumentPositionDetailScreen(receiptViewModel: ReceiptViewModel, onNavigate: (String) -> Unit) {
+fun DocumentPositionDetailScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
     val position = receiptViewModel.selectedDocumentPosition.collectAsState().value ?: return
 
     Scaffold(

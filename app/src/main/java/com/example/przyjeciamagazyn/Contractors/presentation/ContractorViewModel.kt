@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.data.repository.ContractorRepository
-import com.example.przyjeciamagazyn.Receipts.data.repository.ReceiptRepository
+import com.example.przyjeciamagazyn.Documents.data.repository.DocumentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
@@ -16,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ContractorViewModel @Inject constructor (
     val contractorRepository: ContractorRepository,
-    val receiptRepository: ReceiptRepository
+    val receiptRepository: DocumentRepository
 ): ViewModel() {
     private var _contractors = MutableStateFlow<List<Contractor>>(emptyList())
     var contractors: StateFlow<List<Contractor>> = _contractors

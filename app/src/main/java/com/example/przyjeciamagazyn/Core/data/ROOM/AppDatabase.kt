@@ -6,23 +6,23 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
-import com.example.przyjeciamagazyn.Core.data.ROOM.Converter.ContractorConverter
-import com.example.przyjeciamagazyn.Core.data.ROOM.Converter.ReceiptPositionConverter
+import com.example.przyjeciamagazyn.Core.data.ROOM.converters.ContractorConverter
+import com.example.przyjeciamagazyn.Core.data.ROOM.converters.DocumentPositionConverter
 import com.example.przyjeciamagazyn.Core.data.ROOM.dao.ContractorDao
-import com.example.przyjeciamagazyn.Core.data.ROOM.dao.ReceiptDao
-import com.example.przyjeciamagazyn.Core.data.ROOM.dao.ReceiptPositionDao
-import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
-import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
+import com.example.przyjeciamagazyn.Core.data.ROOM.dao.DocumentDao
+import com.example.przyjeciamagazyn.Core.data.ROOM.dao.DocumentPositionDao
+import com.example.przyjeciamagazyn.Documents.data.model.Document
+import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
 
 @Database(entities = [
-    ReceiptDocument::class,
-    ReceiptPosition::class,
+    Document::class,
+    DocumentPosition::class,
     Contractor::class],
     version = 1)
-@TypeConverters(ReceiptPositionConverter::class, ContractorConverter::class)
+@TypeConverters(DocumentPositionConverter::class, ContractorConverter::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun receiptDao(): ReceiptDao
-    abstract fun receiptPositionDao(): ReceiptPositionDao
+    abstract fun receiptDao(): DocumentDao
+    abstract fun receiptPositionDao(): DocumentPositionDao
     abstract fun contractorDao(): ContractorDao
 
 

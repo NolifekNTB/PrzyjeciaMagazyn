@@ -2,7 +2,7 @@ package com.example.przyjeciamagazyn.Core.di
 
 import android.app.Application
 import com.example.przyjeciamagazyn.Contractors.data.repository.ContractorRepository
-import com.example.przyjeciamagazyn.Receipts.data.repository.ReceiptRepository
+import com.example.przyjeciamagazyn.Documents.data.repository.DocumentRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +15,8 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideContextReceiptRepository(app: Application): ReceiptRepository {
-        return ReceiptRepository(app.applicationContext)
+    fun provideContextReceiptRepository(app: Application): DocumentRepository {
+        return DocumentRepository(app.applicationContext)
     }
 
     @Provides

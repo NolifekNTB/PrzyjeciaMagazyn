@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt
+package com.example.przyjeciamagazyn.Documents.presentation.screens.Document
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,16 +21,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
-import com.example.przyjeciamagazyn.Core.presentation.BackButton
-import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
 import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
-import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptDocument
-import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
+import com.example.przyjeciamagazyn.Documents.data.model.Document
+import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
 fun EditReceiptDocumentScreen(
     contractorViewModel: ContractorViewModel,
-    receiptViewModel: ReceiptViewModel,
+    receiptViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
     val receipt = receiptViewModel.selectedDocument.collectAsState().value
@@ -81,7 +79,7 @@ fun EditReceiptDocumentScreen(
                 Button(
                     onClick = {
                         if (date.isNotEmpty() && symbol.isNotEmpty() && selectedContractors.isNotEmpty()) {
-                            val updatedReceipt = ReceiptDocument(
+                            val updatedReceipt = Document(
                                 id = receiptId,
                                 date = date,
                                 symbol = symbol,

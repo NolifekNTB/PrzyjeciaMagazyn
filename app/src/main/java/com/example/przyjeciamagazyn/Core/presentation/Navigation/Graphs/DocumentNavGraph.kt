@@ -7,19 +7,19 @@ import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.EditScreens
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
-import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.DocumentPositionDetailScreen
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.AddNewReceipt
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.EditReceiptDocumentScreen
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.ReceiptListScreen
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.AddNewPosition
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.DocumentPositionsList
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.EditPositionScreen
+import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
+import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.DocumentPositionDetailScreen
+import com.example.przyjeciamagazyn.Documents.presentation.screens.Document.AddNewReceipt
+import com.example.przyjeciamagazyn.Documents.presentation.screens.Document.EditReceiptDocumentScreen
+import com.example.przyjeciamagazyn.Documents.presentation.screens.Document.ReceiptListScreen
+import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.AddNewPosition
+import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.DocumentPositionsList
+import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions.EditPositionScreen
 
 fun NavGraphBuilder.documentGraph(
     navController: NavHostController,
     contractorViewModel: ContractorViewModel,
-    receiptViewModel: ReceiptViewModel
+    receiptViewModel: DocumentViewModel
 ) {
     composable(route = Screen.ReceiptDocumentScreen.route) {
         ReceiptListScreen(receiptViewModel) { route ->
