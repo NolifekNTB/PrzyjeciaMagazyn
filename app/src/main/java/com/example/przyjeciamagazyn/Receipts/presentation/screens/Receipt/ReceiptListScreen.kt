@@ -80,7 +80,7 @@ fun ReceiptListScreen(receiptViewModel: ReceiptViewModel, onNavigate: (String) -
                       items(documents) { receiptDocument ->
                             DocumentRow(receiptDocument) { document ->
                                 selectedDocument.value = document
-                               onNavigate(Screen.DocumentDetailScreen.route)
+                                onNavigate(Screen.DocumentDetailScreen.route)
                             }
                     }
                 }
@@ -125,11 +125,16 @@ fun ContractorRow(contractor: Contractor) {
         Text(
             text = contractor.symbol,
             style = MaterialTheme.typography.bodyLarge,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.width(100.dp)
         )
         Text(
             text = contractor.name,
-            style = MaterialTheme.typography.bodyLarge
+            style = MaterialTheme.typography.bodyLarge,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f)
         )
     }
 }

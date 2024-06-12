@@ -181,7 +181,7 @@ fun AddDocumentButton(
                     positions = listOf()
                 )
                 receiptViewModel.insertReceipt(newDocument)
-                onNavigate(Screen.ReceiptDocumentScreen.route)
+                onNavigate("back")
             }
         },
         modifier = Modifier.fillMaxWidth()

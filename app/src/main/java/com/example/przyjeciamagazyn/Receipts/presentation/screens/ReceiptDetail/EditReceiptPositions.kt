@@ -79,9 +79,8 @@ fun EditPositionScreen(
                                 unit = unit,
                                 quantity = quantity.toInt()
                             )
-                            Log.d("testowanie", "Position updated: $updatedPosition")
                             receiptViewModel.updateReceiptPosition(updatedPosition)
-                            onNavigate(Screen.DocumentPositionDetailScreen.route)
+                            onNavigate("back")
                         }
                     },
                     modifier = Modifier

@@ -90,7 +90,7 @@ fun AddContractorButton(
                     name = name
                 )
                 contractorViewModel.insertContractor(newContractor)
-                onNavigate(Screen.ContractorListScreen.route)
+                onNavigate("back")
             }
         },
         modifier = Modifier

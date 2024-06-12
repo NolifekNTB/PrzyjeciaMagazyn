@@ -111,7 +111,7 @@ fun AddPositionButton(
                     quantity = quantity.toInt()
                 )
                 receiptViewModel.insertReceiptPosition(newPosition)
-                onNavigate(Screen.DocumentDetailScreen.route)
+                onNavigate("back")
             }
         },
         modifier = Modifier

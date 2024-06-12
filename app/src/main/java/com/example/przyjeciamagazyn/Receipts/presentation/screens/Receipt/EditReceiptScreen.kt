@@ -89,7 +89,7 @@ fun EditReceiptDocumentScreen(
                                 positions = receipt?.positions ?: emptyList()
                             )
                             receiptViewModel.updateReceipt(updatedReceipt)
-                            onNavigate(Screen.ReceiptDocumentScreen.route)
+                            onNavigate("back")
                         }
                     },
                     modifier = Modifier

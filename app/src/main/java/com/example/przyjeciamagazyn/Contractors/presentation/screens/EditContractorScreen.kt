@@ -59,7 +59,7 @@ fun EditContractorScreen(
                                 name = name
                             )
                             contractorViewModel.updateContractor(updatedContractor)
-                            onNavigate(Screen.ContractorListScreen.route)
+                            onNavigate("back")
                         }
                     },
                     modifier = Modifier
