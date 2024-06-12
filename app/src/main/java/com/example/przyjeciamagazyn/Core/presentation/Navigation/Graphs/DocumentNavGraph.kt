@@ -8,12 +8,12 @@ import com.example.przyjeciamagazyn.Core.presentation.Navigation.AddScreens
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.EditScreens
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.DocumentPositionDetailScreen
+import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.DocumentPositionDetailScreen
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.AddNewReceipt
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.EditReceiptDocumentScreen
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.Receipt.ReceiptListScreen
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.AddNewPosition
-import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.DocumentDetailScreen
+import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.DocumentPositionsList
 import com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail.EditPositionScreen
 
 fun NavGraphBuilder.documentGraph(
@@ -40,7 +40,7 @@ fun NavGraphBuilder.documentGraph(
         }
     }
     composable(route = Screen.DocumentDetailScreen.route) {
-        DocumentDetailScreen(receiptViewModel) { route ->
+        DocumentPositionsList(receiptViewModel) { route ->
             if (route == "back") navController.popBackStack()
             else navController.navigate(route)
         }

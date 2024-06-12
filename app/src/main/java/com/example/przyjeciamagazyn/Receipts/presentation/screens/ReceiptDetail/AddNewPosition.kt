@@ -1,13 +1,17 @@
 package com.example.przyjeciamagazyn.Receipts.presentation.screens.ReceiptDetail
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.przyjeciamagazyn.Core.presentation.BackButton
+import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.Core.presentation.Navigation.Screen
+import com.example.przyjeciamagazyn.Core.presentation.topAppBarBack
 import com.example.przyjeciamagazyn.Receipts.data.model.ReceiptPosition
 import com.example.przyjeciamagazyn.Receipts.presentation.ReceiptViewModel
 
@@ -21,31 +25,38 @@ fun AddNewPosition(
     var unit by remember { mutableStateOf("") }
     var quantity by remember { mutableStateOf("") }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        BackButton("Add new position",Modifier.padding(top = 5.dp)) {route -> onNavigate(route)}
-        Spacer(modifier = Modifier.height(15.dp))
-        PositionInputFields(
-            productName = productName,
-            onProductNameChange = { productName = it },
-            unit = unit,
-            onUnitChange = { unit = it },
-            quantity = quantity,
-            onQuantityChange = { quantity = it }
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        AddPositionButton(
-            productName = productName,
-            unit = unit,
-            quantity = quantity,
-            receiptId = receiptId,
-            receiptViewModel = receiptViewModel,
-        ) { route -> onNavigate(route) }
-    }
+    Scaffold(
+        topBar = {
+            topAppBarBack("Add New Position") { route -> onNavigate(route) }
+        },
+        content = { padding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(padding)
+                    .padding(15.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.height(15.dp))
+                PositionInputFields(
+                    productName = productName,
+                    onProductNameChange = { productName = it },
+                    unit = unit,
+                    onUnitChange = { unit = it },
+                    quantity = quantity,
+                    onQuantityChange = { quantity = it }
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                AddPositionButton(
+                    productName = productName,
+                    unit = unit,
+                    quantity = quantity,
+                    receiptId = receiptId,
+                    receiptViewModel = receiptViewModel,
+                ) { route -> onNavigate(route) }
+            }
+        }
+    )
 }
 
 @Composable
@@ -57,24 +68,26 @@ fun PositionInputFields(
     quantity: String,
     onQuantityChange: (String) -> Unit
 ) {
-    TextField(
-        value = productName,
-        onValueChange = onProductNameChange,
-        label = { Text("Product Name") },
-        modifier = Modifier.fillMaxWidth()
-    )
-    TextField(
-        value = unit,
-        onValueChange = onUnitChange,
-        label = { Text("Unit") },
-        modifier = Modifier.fillMaxWidth()
-    )
-    TextField(
-        value = quantity,
-        onValueChange = onQuantityChange,
-        label = { Text("Quantity") },
-        modifier = Modifier.fillMaxWidth()
-    )
+    Column {
+        TextField(
+            value = productName,
+            onValueChange = onProductNameChange,
+            label = { Text("Product Name") },
+            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+        )
+        TextField(
+            value = unit,
+            onValueChange = onUnitChange,
+            label = { Text("Unit") },
+            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+        )
+        TextField(
+            value = quantity,
+            onValueChange = onQuantityChange,
+            label = { Text("Quantity") },
+            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+        )
+    }
 }
 
 @Composable
@@ -100,8 +113,11 @@ fun AddPositionButton(
                 receiptViewModel.insertReceiptPosition(newPosition)
                 onNavigate(Screen.DocumentDetailScreen.route)
             }
-        }
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
     ) {
-        Text("Add Position")
+        Text("Add Position", fontSize = 18.sp)
     }
 }
