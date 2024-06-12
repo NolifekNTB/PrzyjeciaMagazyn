@@ -184,9 +184,6 @@ fun AddDocumentButton(
                 onNavigate(Screen.ReceiptDocumentScreen.route)
             }
         },
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0x669A4EAE)
-        ),
         modifier = Modifier.fillMaxWidth()
     ) {
         Text("Add Document")
