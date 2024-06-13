@@ -52,6 +52,11 @@ android {
 }
 
 dependencies {
+    //testsUI
+    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.4.0")
+    debugImplementation ("androidx.compose.ui:ui-tooling:1.4.0")
+    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.4.0")
+
     //Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
