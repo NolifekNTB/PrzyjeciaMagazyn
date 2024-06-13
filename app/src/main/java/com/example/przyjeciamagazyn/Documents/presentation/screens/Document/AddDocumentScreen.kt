@@ -1,5 +1,6 @@
 package com.example.przyjeciamagazyn.Documents.presentation.screens.Document
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -26,7 +27,6 @@ import com.example.przyjeciamagazyn.R
 import com.example.przyjeciamagazyn.Documents.data.model.Document
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddDocumentScreen(
     contractorViewModel: ContractorViewModel,
@@ -40,42 +40,81 @@ fun AddDocumentScreen(
     val contractors = contractorViewModel.contractors.collectAsState(emptyList()).value
 
     Scaffold(
-        topBar = {
-            TopAppBarBack("Add New Receipt") { route -> onNavigate(route)}
-        },
+        topBar = { AddDocumentTopBar(onNavigate) },
         content = { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                DocumentInputFields(
-                    date = date,
-                    onDateChange = { date = it },
-                    symbol = symbol,
-                    onSymbolChange = { symbol = it }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                ContractorsDropdown(
-                    contractors = contractors,
-                    selectedContractors = selectedContractors,
-                    onContractorsSelected = { selectedContractors = it },
-                    expanded = contractorListExpanded,
-                    onExpandedChange = { contractorListExpanded = it }
-                )
-                Spacer(modifier = Modifier.height(24.dp))
-                AddDocumentButton(
-                    date = date,
-                    symbol = symbol,
-                    selectedContractors = selectedContractors,
-                    receiptViewModel = receiptViewModel,
-                ) { route -> onNavigate(route) }
-            }
+            AddDocumentContent(
+                date = date,
+                onDateChange = { date = it },
+                symbol = symbol,
+                onSymbolChange = { symbol = it },
+                contractors = contractors,
+                selectedContractors = selectedContractors,
+                onContractorsSelected = { selectedContractors = it },
+                contractorListExpanded = contractorListExpanded,
+                onExpandedChange = { contractorListExpanded = it },
+                onAddDocumentClick = {
+                    if (date.isNotEmpty() && symbol.isNotEmpty() && selectedContractors.isNotEmpty()) {
+                        val newDocument = Document(
+                            date = date,
+                            symbol = symbol,
+                            contractors = selectedContractors,
+                            positions = listOf()
+                        )
+                        receiptViewModel.insertDocument(newDocument)
+                        onNavigate("back")
+                    }
+                },
+                paddingValues = paddingValues
+            )
         }
     )
 }
+
+@Composable
+fun AddDocumentTopBar(onNavigate: (String) -> Unit) {
+    TopAppBarBack("Add New Receipt") { route -> onNavigate(route) }
+}
+
+@Composable
+fun AddDocumentContent(
+    date: String,
+    onDateChange: (String) -> Unit,
+    symbol: String,
+    onSymbolChange: (String) -> Unit,
+    contractors: List<Contractor>,
+    selectedContractors: List<Contractor>,
+    onContractorsSelected: (List<Contractor>) -> Unit,
+    contractorListExpanded: Boolean,
+    onExpandedChange: (Boolean) -> Unit,
+    onAddDocumentClick: () -> Unit,
+    paddingValues: PaddingValues
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        DocumentInputFields(
+            date = date,
+            onDateChange = onDateChange,
+            symbol = symbol,
+            onSymbolChange = onSymbolChange
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        ContractorsDropdown(
+            contractors = contractors,
+            selectedContractors = selectedContractors,
+            onContractorsSelected = onContractorsSelected,
+            expanded = contractorListExpanded,
+            onExpandedChange = onExpandedChange
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+        AddDocumentButton(onClick = onAddDocumentClick)
+    }
+}
+
 
 @Composable
 fun DocumentInputFields(
@@ -161,26 +200,9 @@ fun ContractorsDropdown(
 }
 
 @Composable
-fun AddDocumentButton(
-    date: String,
-    symbol: String,
-    selectedContractors: List<Contractor>,
-    receiptViewModel: DocumentViewModel,
-    onNavigate: (String) -> Unit
-) {
+fun AddDocumentButton(onClick: () -> Unit) {
     Button(
-        onClick = {
-            if (date.isNotEmpty() && symbol.isNotEmpty() && selectedContractors.isNotEmpty()) {
-                val newDocument = Document(
-                    date = date,
-                    symbol = symbol,
-                    contractors = selectedContractors,
-                    positions = listOf()
-                )
-                receiptViewModel.insertReceipt(newDocument)
-                onNavigate("back")
-            }
-        },
+        onClick = onClick,
         modifier = Modifier.fillMaxWidth()
     ) {
         Text("Add Document")

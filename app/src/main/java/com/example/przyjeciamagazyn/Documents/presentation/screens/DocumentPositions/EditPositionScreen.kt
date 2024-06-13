@@ -1,7 +1,7 @@
 package com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPositions
 
-
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,12 +18,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
+import com.example.przyjeciamagazyn.Documents.data.model.Position
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.unit.sp
 import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
-
 
 @Composable
 fun EditPositionScreen(
@@ -45,48 +44,100 @@ fun EditPositionScreen(
     }
 
     Scaffold(
-        topBar = {
-            TopAppBarBack("Edit Receipt Position") { route -> onNavigate(route) }
-        },
-        content = { padding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(padding)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.height(15.dp))
-                PositionInputFields(
-                    productName = productName,
-                    onProductNameChange = { productName = it },
-                    unit = unit,
-                    onUnitChange = { unit = it },
-                    quantity = quantity,
-                    onQuantityChange = { quantity = it },
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Button(
-                    onClick = {
-                        if (productName.isNotEmpty() && unit.isNotEmpty()) {
-                            val updatedPosition = DocumentPosition(
-                                id = position.id,
-                                receiptId = position.receiptId,
-                                productName = productName,
-                                unit = unit,
-                                quantity = quantity.toInt()
-                            )
-                            receiptViewModel.updateReceiptPosition(updatedPosition)
-                            onNavigate("back")
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp)
-                ) {
-                    Text("Update Position", fontSize = 18.sp)
-                }
-            }
+        topBar = { EditPositionTopBar(onNavigate = onNavigate) },
+        content = { paddingValues ->
+            EditPositionContent(
+                productName = productName,
+                onProductNameChange = { productName = it },
+                unit = unit,
+                onUnitChange = { unit = it },
+                quantity = quantity,
+                onQuantityChange = { quantity = it },
+                position = position,
+                receiptViewModel = receiptViewModel,
+                onNavigate = onNavigate,
+                paddingValues = paddingValues
+            )
         }
     )
 }
+
+@Composable
+fun EditPositionTopBar(onNavigate: (String) -> Unit) {
+    TopAppBarBack("Edit Receipt Position") { route -> onNavigate(route) }
+}
+
+@Composable
+fun EditPositionContent(
+    productName: String,
+    onProductNameChange: (String) -> Unit,
+    unit: String,
+    onUnitChange: (String) -> Unit,
+    quantity: String,
+    onQuantityChange: (String) -> Unit,
+    position: Position,
+    receiptViewModel: DocumentViewModel,
+    onNavigate: (String) -> Unit,
+    paddingValues: PaddingValues
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(paddingValues)
+            .padding(15.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(15.dp))
+        PositionInputFields(
+            productName = productName,
+            onProductNameChange = onProductNameChange,
+            unit = unit,
+            onUnitChange = onUnitChange,
+            quantity = quantity,
+            onQuantityChange = onQuantityChange
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        EditPositionButton(
+            productName = productName,
+            unit = unit,
+            quantity = quantity,
+            position = position,
+            receiptViewModel = receiptViewModel,
+            onNavigate = onNavigate
+        )
+    }
+}
+
+@Composable
+fun EditPositionButton(
+    productName: String,
+    unit: String,
+    quantity: String,
+    position: Position,
+    receiptViewModel: DocumentViewModel,
+    onNavigate: (String) -> Unit
+) {
+    val isQuantityValid = quantity.toIntOrNull() != null
+
+    Button(
+        onClick = {
+            if (productName.isNotEmpty() && unit.isNotEmpty() && isQuantityValid) {
+                val updatedPosition = Position(
+                    id = position.id,
+                    documentId = position.documentId,
+                    productName = productName,
+                    unit = unit,
+                    quantity = quantity.toInt()
+                )
+                receiptViewModel.updateDocumentPositions(updatedPosition)
+                onNavigate("back")
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        Text("Update Position", fontSize = 18.sp)
+    }
+}
+

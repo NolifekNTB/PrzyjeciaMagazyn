@@ -1,6 +1,7 @@
 package com.example.przyjeciamagazyn.Documents.presentation.screens.Document
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -49,54 +50,91 @@ fun EditDocumentScreen(
     }
 
     Scaffold(
-        topBar = {
-            TopAppBarBack("Edit Receipt") { route -> onNavigate(route) }
-        },
-        content = { padding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(padding)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.height(15.dp))
-                DocumentInputFields(
-                    date = date,
-                    onDateChange = { date = it },
-                    symbol = symbol,
-                    onSymbolChange = { symbol = it }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                ContractorsDropdown(
-                    contractors = contractors,
-                    selectedContractors = selectedContractors,
-                    onContractorsSelected = { selectedContractors = it },
-                    expanded = contractorListExpanded,
-                    onExpandedChange = { contractorListExpanded = it }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Button(
-                    onClick = {
-                        if (date.isNotEmpty() && symbol.isNotEmpty() && selectedContractors.isNotEmpty()) {
-                            val updatedReceipt = Document(
-                                id = receiptId,
-                                date = date,
-                                symbol = symbol,
-                                contractors = selectedContractors,
-                                positions = receipt?.positions ?: emptyList()
-                            )
-                            receiptViewModel.updateReceipt(updatedReceipt)
-                            onNavigate("back")
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp)
-                ) {
-                    Text("Update Receipt", fontSize = 18.sp)
-                }
-            }
+        topBar = { EditDocumentTopBar { onNavigate("back") } },
+        content = { paddingValues ->
+            EditDocumentContent(
+                date = date,
+                onDateChange = { date = it },
+                symbol = symbol,
+                onSymbolChange = { symbol = it },
+                contractors = contractors,
+                selectedContractors = selectedContractors,
+                onContractorsSelected = { selectedContractors = it },
+                contractorListExpanded = contractorListExpanded,
+                onExpandedChange = { contractorListExpanded = it },
+                onUpdateClick = {
+                    if (date.isNotEmpty() && symbol.isNotEmpty() && selectedContractors.isNotEmpty()) {
+                        val updatedReceipt = Document(
+                            id = receiptId,
+                            date = date,
+                            symbol = symbol,
+                            contractors = selectedContractors,
+                            positions = receipt?.positions ?: emptyList()
+                        )
+                        receiptViewModel.updateDocument(updatedReceipt)
+                        onNavigate("back")
+                    }
+                },
+                paddingValues = paddingValues
+            )
         }
     )
+}
+
+@Composable
+fun EditDocumentTopBar(onNavigate: (String) -> Unit) {
+    TopAppBarBack("Edit Receipt") { route -> onNavigate(route) }
+}
+
+@Composable
+fun EditDocumentContent(
+    date: String,
+    onDateChange: (String) -> Unit,
+    symbol: String,
+    onSymbolChange: (String) -> Unit,
+    contractors: List<Contractor>,
+    selectedContractors: List<Contractor>,
+    onContractorsSelected: (List<Contractor>) -> Unit,
+    contractorListExpanded: Boolean,
+    onExpandedChange: (Boolean) -> Unit,
+    onUpdateClick: () -> Unit,
+    paddingValues: PaddingValues
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(paddingValues)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(15.dp))
+        DocumentInputFields(
+            date = date,
+            onDateChange = onDateChange,
+            symbol = symbol,
+            onSymbolChange = onSymbolChange
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        ContractorsDropdown(
+            contractors = contractors,
+            selectedContractors = selectedContractors,
+            onContractorsSelected = onContractorsSelected,
+            expanded = contractorListExpanded,
+            onExpandedChange = onExpandedChange
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        UpdateDocumentButton(onClick = onUpdateClick)
+    }
+}
+
+@Composable
+fun UpdateDocumentButton(onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        Text("Update Receipt", fontSize = 18.sp)
+    }
 }

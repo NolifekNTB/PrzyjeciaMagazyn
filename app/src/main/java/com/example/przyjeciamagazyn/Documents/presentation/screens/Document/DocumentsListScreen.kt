@@ -2,6 +2,7 @@ package com.example.przyjeciamagazyn.Documents.presentation.screens.Document
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,42 +36,62 @@ import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 import com.example.przyjeciamagazyn.Documents.data.model.Document
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DocumentListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit, ) {
     val documents = receiptViewModel.receiptDocuments.collectAsState(emptyList()).value
     val selectedDocument = receiptViewModel.selectedDocument
 
     LaunchedEffect(key1 = documents) {
-        receiptViewModel.getALlReceipts()
+        receiptViewModel.getALlDocuments()
     }
 
     Scaffold(
-        topBar = {
-            TopAppBarBack("Receipt List") { route -> onNavigate(route)}
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = { onNavigate(AddScreens.AddDocumentScreen.route) }) {
-                Icon(Icons.Default.Add, contentDescription = "Add Document")
-            }
-        },
+        topBar = { DocumentListTopBar(onNavigate = onNavigate) },
+        floatingActionButton = { AddDocumentButton(onNavigate = onNavigate) },
         content = { paddingValues ->
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)) {
-                    LazyColumn(modifier = Modifier.weight(1f)) {
-                      items(documents) { receiptDocument ->
-                            DocumentRow(receiptDocument) { document ->
-                                selectedDocument.value = document
-                                onNavigate(Screen.PositionsListScreen.route)
-                            }
-                    }
+            DocumentListContent(
+                documents = documents,
+                paddingValues = paddingValues,
+                onDocumentClick = { document ->
+                    selectedDocument.value = document
+                    onNavigate(Screen.PositionsListScreen.route)
                 }
-            }
+            )
         }
     )
 }
+
+@Composable
+fun DocumentListTopBar(onNavigate: (String) -> Unit) {
+    TopAppBarBack(screenTitle = "Receipt List", onNavigateBack = onNavigate)
+}
+
+@Composable
+fun AddDocumentButton(onNavigate: (String) -> Unit) {
+    FloatingActionButton(onClick = { onNavigate(AddScreens.AddDocumentScreen.route) }) {
+        Icon(Icons.Default.Add, contentDescription = "Add Document")
+    }
+}
+
+@Composable
+fun DocumentListContent(
+    documents: List<Document>,
+    paddingValues: PaddingValues,
+    onDocumentClick: (Document) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+    ) {
+        LazyColumn(modifier = Modifier.weight(1f)) {
+            items(documents) { receiptDocument ->
+                DocumentRow(receiptDocument, onDocumentClick)
+            }
+        }
+    }
+}
+
 
 @Composable
 fun DocumentRow(receiptDocument: Document, onDocumentClick: (Document) -> Unit) {
@@ -82,20 +103,38 @@ fun DocumentRow(receiptDocument: Document, onDocumentClick: (Document) -> Unit) 
         elevation = CardDefaults.elevatedCardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Date: ${receiptDocument.date}", style = MaterialTheme.typography.titleMedium)
-            Text(text = "Symbol: ${receiptDocument.symbol}", style = MaterialTheme.typography.titleMedium)
-            Text(text = "Contractors:", style = MaterialTheme.typography.titleMedium)
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Column {
-                receiptDocument.contractors.forEach { contractor ->
-                    ContractorRow(contractor)
-                }
-            }
+            DocumentInfo(receiptDocument)
+            ContractorList(contractors = receiptDocument.contractors)
         }
     }
 }
+
+@Composable
+fun DocumentInfo(receiptDocument: Document) {
+    Text(
+        text = "Date: ${receiptDocument.date}",
+        style = MaterialTheme.typography.titleMedium
+    )
+    Text(
+        text = "Symbol: ${receiptDocument.symbol}",
+        style = MaterialTheme.typography.titleMedium
+    )
+    Text(
+        text = "Contractors:",
+        style = MaterialTheme.typography.titleMedium
+    )
+}
+
+@Composable
+fun ContractorList(contractors: List<Contractor>) {
+    Spacer(modifier = Modifier.height(8.dp))
+    Column {
+        contractors.forEach { contractor ->
+            ContractorRow(contractor)
+        }
+    }
+}
+
 
 @Composable
 fun ContractorRow(contractor: Contractor) {

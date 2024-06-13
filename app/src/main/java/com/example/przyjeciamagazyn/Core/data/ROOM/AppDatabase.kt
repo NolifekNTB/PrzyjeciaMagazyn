@@ -10,14 +10,14 @@ import com.example.przyjeciamagazyn.Core.data.ROOM.converters.ContractorConverte
 import com.example.przyjeciamagazyn.Core.data.ROOM.converters.DocumentPositionConverter
 import com.example.przyjeciamagazyn.Core.data.ROOM.dao.ContractorDao
 import com.example.przyjeciamagazyn.Core.data.ROOM.dao.DocumentDao
-import com.example.przyjeciamagazyn.Core.data.ROOM.dao.DocumentPositionDao
+import com.example.przyjeciamagazyn.Core.data.ROOM.dao.PositionDao
 import com.example.przyjeciamagazyn.Documents.data.model.Document
-import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
+import com.example.przyjeciamagazyn.Documents.data.model.Position
 
 @Database(
     entities = [
         Document::class,
-        DocumentPosition::class,
+        Position::class,
         Contractor::class
                ],
     version = 1
@@ -25,7 +25,7 @@ import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
 @TypeConverters(DocumentPositionConverter::class, ContractorConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun documentDao(): DocumentDao
-    abstract fun documentPositionDao(): DocumentPositionDao
+    abstract fun documentPositionDao(): PositionDao
     abstract fun contractorDao(): ContractorDao
 
 

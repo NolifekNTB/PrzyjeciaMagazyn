@@ -1,21 +1,21 @@
 package com.example.przyjeciamagazyn.Core.data.ROOM.converters
 
 import androidx.room.TypeConverter
-import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
+import com.example.przyjeciamagazyn.Documents.data.model.Position
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class DocumentPositionConverter {
     private val gson = Gson()
-    private val type = object : TypeToken<List<DocumentPosition>>() {}.type
+    private val type = object : TypeToken<List<Position>>() {}.type
 
     @TypeConverter
-    fun fromPositionList(position: List<DocumentPosition>): String {
+    fun fromPositionList(position: List<Position>): String {
         return gson.toJson(position, type)
     }
 
     @TypeConverter
-    fun toPositionList(positionString: String): List<DocumentPosition> {
+    fun toPositionList(positionString: String): List<Position> {
         return if (positionString.isNullOrEmpty()) {
             emptyList()
         } else {

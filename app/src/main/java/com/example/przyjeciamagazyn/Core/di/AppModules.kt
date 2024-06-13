@@ -2,6 +2,7 @@ package com.example.przyjeciamagazyn.Core.di
 
 import android.app.Application
 import com.example.przyjeciamagazyn.Contractors.data.repository.ContractorRepository
+import com.example.przyjeciamagazyn.Documents.data.repository.PositionsRepository
 import com.example.przyjeciamagazyn.Documents.data.repository.DocumentRepository
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,13 @@ object AppModules {
     fun provideContextDocumentRepository(app: Application): DocumentRepository {
         return DocumentRepository(app.applicationContext)
     }
+
+    @Provides
+    @Singleton
+    fun provideContextPositionsRepository(app: Application): PositionsRepository {
+        return PositionsRepository(app.applicationContext)
+    }
+
 
     @Provides
     @Singleton

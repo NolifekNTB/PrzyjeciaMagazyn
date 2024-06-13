@@ -3,7 +3,8 @@ package com.example.przyjeciamagazyn.Documents.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.przyjeciamagazyn.Documents.data.model.Document
-import com.example.przyjeciamagazyn.Documents.data.model.DocumentPosition
+import com.example.przyjeciamagazyn.Documents.data.model.Position
+import com.example.przyjeciamagazyn.Documents.data.repository.PositionsRepository
 import com.example.przyjeciamagazyn.Documents.data.repository.DocumentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -14,72 +15,64 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DocumentViewModel @Inject constructor(
-    private val repository: DocumentRepository,
+    private val documentRepository: DocumentRepository,
+    private val positionRepository: PositionsRepository
 ): ViewModel() {
     private var _receiptDocuments = MutableStateFlow<List<Document>>(emptyList())
     var receiptDocuments: Flow<List<Document>> = _receiptDocuments
 
     var selectedDocument = MutableStateFlow<Document?>(null)
-    var selectedDocumentPosition = MutableStateFlow<DocumentPosition?>(null)
+    var selectedDocumentPosition = MutableStateFlow<Position?>(null)
 
-    init {
-        //insertReceipt(sampleDocuments[1])
-        getALlReceipts()
-    }
-
-    fun insertReceipt(receipt: Document) = viewModelScope.launch {
-        repository.insertDocument(receipt)
-    }
-
-    fun getALlReceipts() {
+    fun getALlDocuments() {
         viewModelScope.launch {
-            val result = repository.getAllDocuments().first()
+            val result = documentRepository.getAllDocuments().first()
             _receiptDocuments.value = result
         }
     }
 
-    fun deleteAllReceipts() = viewModelScope.launch {
-        repository.deleteAllDocuments()
+    fun insertDocument(document: Document) = viewModelScope.launch {
+        documentRepository.insertDocument(document)
     }
 
-    fun insertReceiptPosition(position: DocumentPosition) = viewModelScope.launch {
-        repository.insertPosition(position)
-        refreshReceiptPositions(position.receiptId)
+    fun insertPosition(position: Position) = viewModelScope.launch {
+        positionRepository.insertPosition(position)
+        refreshReceiptPositions(position.documentId)
     }
 
 
-    fun updateReceipt(updatedReceipt: Document) {
+    fun updateDocument(updatedDocument: Document) {
         viewModelScope.launch {
-            repository.updateDocument(updatedReceipt)
+            documentRepository.updateDocument(updatedDocument)
         }
     }
 
-    fun updateReceiptPosition(position: DocumentPosition){
+    fun updateDocumentPositions(position: Position){
         viewModelScope.launch {
-            repository.updatePosition(position)
-            refreshReceiptPositions(position.receiptId)
-            refreshPosition(position.id)
+            positionRepository.updatePosition(position)
+            refreshReceiptPositions(position.documentId)
+            updateSelectedDocumentPositions(position.id)
         }
     }
 
-    fun refreshReceiptPositions(receiptId: Int) {
+    private fun refreshReceiptPositions(documentId: Int) {
         viewModelScope.launch {
-            val positions = repository.getPositionsForDocument(receiptId).first()
-            repository.updateDocumentPositions(selectedDocument.value!!.id, positions)
-            updatedReceipt(receiptId)
+            val positions = positionRepository.getPositionsForDocument(documentId).first()
+            documentRepository.updateDocumentPositions(selectedDocument.value!!.id, positions)
+            updateSelectedDocument(documentId)
         }
     }
 
-    fun updatedReceipt(receiptId: Int) {
+    private fun updateSelectedDocument(documentId: Int) {
         viewModelScope.launch {
-            val receipt = repository.getDocument(receiptId).first()
-            selectedDocument.value = receipt
+            val document = documentRepository.getDocument(documentId).first()
+            selectedDocument.value = document
         }
     }
 
-    fun refreshPosition(positionId: Int) {
+    private fun updateSelectedDocumentPositions(positionId: Int) {
         viewModelScope.launch {
-            val position = repository.getPosition(positionId).first()
+            val position = positionRepository.getPosition(positionId).first()
             selectedDocumentPosition.value = position
         }
     }
