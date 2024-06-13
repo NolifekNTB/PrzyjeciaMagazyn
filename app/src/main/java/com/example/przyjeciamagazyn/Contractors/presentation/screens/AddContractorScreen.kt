@@ -22,32 +22,56 @@ fun AddContractorScreen(
     var name by remember { mutableStateOf("") }
 
     Scaffold(
-        topBar = {
-            TopAppBarBack(screenTitle = "Add New Contractor") { route -> onNavigate(route) }
-        },
+        topBar = { AddContractorTopBar(onNavigate) },
         content = { padding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                ContractorInputFields(
-                    symbol = symbol,
-                    onSymbolChange = { symbol = it },
-                    name = name,
-                    onNameChange = { name = it }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                AddContractorButton(
-                    symbol = symbol,
-                    name = name,
-                    contractorViewModel = contractorViewModel
-                ) { route -> onNavigate(route) }
-            }
+            AddContractorContent(
+                symbol = symbol,
+                onSymbolChange = { symbol = it },
+                name = name,
+                onNameChange = { name = it },
+                contractorViewModel = contractorViewModel,
+                onNavigate = onNavigate,
+                padding = padding
+            )
         }
     )
+}
+
+@Composable
+fun AddContractorTopBar(onNavigate: (String) -> Unit) {
+    TopAppBarBack(screenTitle = "Add New Contractor") { route -> onNavigate(route) }
+}
+
+@Composable
+fun AddContractorContent(
+    symbol: String,
+    onSymbolChange: (String) -> Unit,
+    name: String,
+    onNameChange: (String) -> Unit,
+    contractorViewModel: ContractorViewModel,
+    onNavigate: (String) -> Unit,
+    padding: PaddingValues
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        ContractorInputFields(
+            symbol = symbol,
+            onSymbolChange = onSymbolChange,
+            name = name,
+            onNameChange = onNameChange
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        AddContractorButton(
+            symbol = symbol,
+            name = name,
+            contractorViewModel = contractorViewModel
+        ) { route -> onNavigate(route) }
+    }
 }
 
 @Composable

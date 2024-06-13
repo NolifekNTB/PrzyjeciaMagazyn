@@ -2,6 +2,7 @@ package com.example.przyjeciamagazyn.Contractors.presentation.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -29,32 +31,50 @@ import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 
 @Composable
 fun ContractorListScreen(contractorViewModel: ContractorViewModel, onNavigate: (String) -> Unit) {
-    val contractorList = contractorViewModel.contractors.collectAsState(emptyList()).value
+    val contractorList by contractorViewModel.contractors.collectAsState(emptyList())
 
     Scaffold(
-        topBar = {
-            TopAppBarBack(screenTitle = "Contractors list") { route -> onNavigate(route) }
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { onNavigate(AddScreens.AddContractorScreen.route) },
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Contractor")
-            }
-        },
+        topBar = { ContractorListTopBar(onNavigate) },
+        floatingActionButton = { AddContractorFab(onNavigate) },
         content = { padding ->
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)) {
-                LazyColumn(modifier = Modifier.weight(1f)) {
-                    items(contractorList) { contractor ->
-                        ContractorRow(contractor, contractorViewModel) { route -> onNavigate(route) }
-                    }
-                }
-            }
+            ContractorListContent(contractorList, contractorViewModel, onNavigate, padding)
         }
     )
+}
+
+@Composable
+fun ContractorListTopBar(onNavigate: (String) -> Unit) {
+    TopAppBarBack(screenTitle = "Contractors list") { route -> onNavigate(route) }
+}
+
+@Composable
+fun AddContractorFab(onNavigate: (String) -> Unit) {
+    FloatingActionButton(
+        onClick = { onNavigate(AddScreens.AddContractorScreen.route) },
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Icon(imageVector = Icons.Default.Add, contentDescription = "Add Contractor")
+    }
+}
+
+@Composable
+fun ContractorListContent(
+    contractorList: List<Contractor>,
+    contractorViewModel: ContractorViewModel,
+    onNavigate: (String) -> Unit,
+    padding: PaddingValues
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding)
+    ) {
+        LazyColumn(modifier = Modifier.weight(1f)) {
+            items(contractorList) { contractor ->
+                ContractorRow(contractor, contractorViewModel, onNavigate)
+            }
+        }
+    }
 }
 
 @Composable

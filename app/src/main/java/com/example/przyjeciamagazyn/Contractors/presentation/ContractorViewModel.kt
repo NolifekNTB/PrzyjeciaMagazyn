@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ContractorViewModel @Inject constructor (
-    val contractorRepository: ContractorRepository,
-    val receiptRepository: DocumentRepository
+    private val contractorRepository: ContractorRepository,
+    private val receiptRepository: DocumentRepository
 ): ViewModel() {
     private var _contractors = MutableStateFlow<List<Contractor>>(emptyList())
     var contractors: StateFlow<List<Contractor>> = _contractors
@@ -27,21 +27,7 @@ class ContractorViewModel @Inject constructor (
         getAllContractors()
     }
 
-    private fun updateReceiptsWithContractor(updatedContractor: Contractor) {
-        viewModelScope.launch {
-            val receipts = receiptRepository.getDocumentsContainingContractor(updatedContractor.id).first()
-
-            receipts.forEach { receipt ->
-                val updatedContractors = receipt.contractors.map {
-                    if (it.id == updatedContractor.id) updatedContractor else it
-                }
-                val updatedReceipt = receipt.copy(contractors = updatedContractors)
-                receiptRepository.updateDocument(updatedReceipt)
-            }
-        }
-    }
-
-    fun getAllContractors() {
+    private fun getAllContractors() {
         viewModelScope.launch {
             val result = contractorRepository.getAllContractors().first()
             _contractors.value = result
@@ -63,13 +49,21 @@ class ContractorViewModel @Inject constructor (
         }
     }
 
-    fun selectContractor(contractor: Contractor) {
-        _selectedContractor.value = contractor
+    private fun updateReceiptsWithContractor(updatedContractor: Contractor) {
+        viewModelScope.launch {
+            val receipts = receiptRepository.getDocumentsContainingContractor(updatedContractor.id).first()
+
+            receipts.forEach { receipt ->
+                val updatedContractors = receipt.contractors.map {
+                    if (it.id == updatedContractor.id) updatedContractor else it
+                }
+                val updatedReceipt = receipt.copy(contractors = updatedContractors)
+                receiptRepository.updateDocument(updatedReceipt)
+            }
+        }
     }
 
-    fun deleteContractors() {
-        viewModelScope.launch {
-            contractorRepository.deleteAllContractors()
-        }
+    fun selectContractor(contractor: Contractor) {
+        _selectedContractor.value = contractor
     }
 }
