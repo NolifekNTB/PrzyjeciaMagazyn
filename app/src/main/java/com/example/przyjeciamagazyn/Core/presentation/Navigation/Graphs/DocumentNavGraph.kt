@@ -19,40 +19,40 @@ import com.example.przyjeciamagazyn.Documents.presentation.screens.DocumentPosit
 fun NavGraphBuilder.documentGraph(
     navController: NavHostController,
     contractorViewModel: ContractorViewModel,
-    receiptViewModel: DocumentViewModel
+    documentViewModel: DocumentViewModel
 ) {
     composable(route = Screen.DocumentListScreen.route) {
-        DocumentListScreen(receiptViewModel) { route ->
+        DocumentListScreen(documentViewModel) { route ->
             handleNavigation(navController, route)
         }
     }
     composable(route = AddScreens.AddDocumentScreen.route) {
-        AddDocumentScreen(contractorViewModel, receiptViewModel) { route ->
+        AddDocumentScreen(contractorViewModel, documentViewModel) { route ->
             handleNavigation(navController, route)
         }
     }
     composable(route = EditScreens.EditDocumentScreen.route) {
-        EditDocumentScreen(contractorViewModel, receiptViewModel) { route ->
+        EditDocumentScreen(contractorViewModel, documentViewModel) { route ->
             handleNavigation(navController, route)
         }
     }
     composable(route = Screen.PositionsListScreen.route) {
-        PositionsListScreen(receiptViewModel) { route ->
+        PositionsListScreen(documentViewModel) { route ->
             handleNavigation(navController, route)
         }
     }
     composable(route = AddScreens.AddPositionScreen.route) {
-        AddPositionScreen(receiptViewModel = receiptViewModel) { route ->
+        AddPositionScreen(documentViewModel = documentViewModel) { route ->
             handleNavigation(navController, route)
         }
     }
     composable(route = EditScreens.EditPositionScreen.route) {
-        EditPositionScreen(receiptViewModel) { route ->
+        EditPositionScreen(documentViewModel) { route ->
             handleNavigation(navController, route)
         }
     }
     composable(route = Screen.PositionDetailScreen.route) {
-        PositionDetailScreen(receiptViewModel) { route ->
+        PositionDetailScreen(documentViewModel) { route ->
             handleNavigation(navController, route)
         }
     }

@@ -28,7 +28,7 @@ import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 @Composable
 fun AddDocumentScreen(
     contractorViewModel: ContractorViewModel,
-    receiptViewModel: DocumentViewModel,
+    documentViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
     var date by remember { mutableStateOf("") }
@@ -58,7 +58,7 @@ fun AddDocumentScreen(
                             contractors = selectedContractors,
                             positions = listOf()
                         )
-                        receiptViewModel.insertDocument(newDocument)
+                        documentViewModel.insertDocument(newDocument)
                         onNavigate("back")
                     }
                 },
@@ -70,7 +70,7 @@ fun AddDocumentScreen(
 
 @Composable
 fun AddDocumentTopBar(onNavigate: (String) -> Unit) {
-    TopAppBarBack("Add New Receipt") { route -> onNavigate(route) }
+    TopAppBarBack("Add New document") { route -> onNavigate(route) }
 }
 
 @Composable

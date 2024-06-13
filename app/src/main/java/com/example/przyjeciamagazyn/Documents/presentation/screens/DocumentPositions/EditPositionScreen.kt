@@ -26,10 +26,10 @@ import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 
 @Composable
 fun EditPositionScreen(
-    receiptViewModel: DocumentViewModel,
+    documentViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
-    val position = receiptViewModel.selectedDocumentPosition.collectAsState().value ?: return
+    val position = documentViewModel.selectedDocumentPosition.collectAsState().value ?: return
 
     var productName by remember { mutableStateOf("") }
     var unit by remember { mutableStateOf("") }
@@ -54,7 +54,7 @@ fun EditPositionScreen(
                 quantity = quantity,
                 onQuantityChange = { quantity = it },
                 position = position,
-                receiptViewModel = receiptViewModel,
+                documentViewModel = documentViewModel,
                 onNavigate = onNavigate,
                 paddingValues = paddingValues
             )
@@ -64,7 +64,7 @@ fun EditPositionScreen(
 
 @Composable
 fun EditPositionTopBar(onNavigate: (String) -> Unit) {
-    TopAppBarBack("Edit Receipt Position") { route -> onNavigate(route) }
+    TopAppBarBack("Edit document Position") { route -> onNavigate(route) }
 }
 
 @Composable
@@ -76,7 +76,7 @@ fun EditPositionContent(
     quantity: String,
     onQuantityChange: (String) -> Unit,
     position: Position,
-    receiptViewModel: DocumentViewModel,
+    documentViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit,
     paddingValues: PaddingValues
 ) {
@@ -102,7 +102,7 @@ fun EditPositionContent(
             unit = unit,
             quantity = quantity,
             position = position,
-            receiptViewModel = receiptViewModel,
+            documentViewModel = documentViewModel,
             onNavigate = onNavigate
         )
     }
@@ -114,7 +114,7 @@ fun EditPositionButton(
     unit: String,
     quantity: String,
     position: Position,
-    receiptViewModel: DocumentViewModel,
+    documentViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
     val isQuantityValid = quantity.toIntOrNull() != null
@@ -129,7 +129,7 @@ fun EditPositionButton(
                     unit = unit,
                     quantity = quantity.toInt()
                 )
-                receiptViewModel.updateDocumentPositions(updatedPosition)
+                documentViewModel.updateDocumentPositions(updatedPosition)
                 onNavigate("back")
             }
         },

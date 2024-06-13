@@ -7,21 +7,21 @@ import com.example.przyjeciamagazyn.Documents.data.model.Position
 import kotlinx.coroutines.flow.Flow
 
 class PositionsRepository(context: Context): PositionDao {
-    private val receiptPosition = AppDatabase.getInstance(context).documentPositionDao()
+    private val documentPosition = AppDatabase.getInstance(context).documentPositionDao()
 
     override fun getPosition(id: Int): Flow<Position> {
-        return receiptPosition.getPosition(id)
+        return documentPosition.getPosition(id)
     }
 
     override fun getPositionsForDocument(documentId: Int): Flow<List<Position>> {
-        return receiptPosition.getPositionsForDocument(documentId)
+        return documentPosition.getPositionsForDocument(documentId)
     }
 
     override suspend fun insertPosition(position: Position) {
-        receiptPosition.insertPosition(position)
+        documentPosition.insertPosition(position)
     }
 
     override suspend fun updatePosition(position: Position) {
-        receiptPosition.updatePosition(position)
+        documentPosition.updatePosition(position)
     }
 }

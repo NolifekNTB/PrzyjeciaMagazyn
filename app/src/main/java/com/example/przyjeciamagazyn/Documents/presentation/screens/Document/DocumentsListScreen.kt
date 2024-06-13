@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
@@ -37,12 +38,12 @@ import com.example.przyjeciamagazyn.Documents.data.model.Document
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
-fun DocumentListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit, ) {
-    val documents = receiptViewModel.receiptDocuments.collectAsState(emptyList()).value
-    val selectedDocument = receiptViewModel.selectedDocument
+fun DocumentListScreen(documentViewModel: DocumentViewModel, onNavigate: (String) -> Unit, ) {
+    val documents by documentViewModel.documentDocuments.collectAsState(emptyList())
+    val selectedDocument by documentViewModel.selectedDocument.collectAsState()
 
-    LaunchedEffect(key1 = documents) {
-        receiptViewModel.getALlDocuments()
+    LaunchedEffect(key1 = selectedDocument) {
+        documentViewModel.getALlDocuments()
     }
 
     Scaffold(
@@ -53,7 +54,7 @@ fun DocumentListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String)
                 documents = documents,
                 paddingValues = paddingValues,
                 onDocumentClick = { document ->
-                    selectedDocument.value = document
+                    documentViewModel.selectDocument(document)
                     onNavigate(Screen.PositionsListScreen.route)
                 }
             )
@@ -63,7 +64,7 @@ fun DocumentListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String)
 
 @Composable
 fun DocumentListTopBar(onNavigate: (String) -> Unit) {
-    TopAppBarBack(screenTitle = "Receipt List", onNavigateBack = onNavigate)
+    TopAppBarBack(screenTitle = "document List", onNavigateBack = onNavigate)
 }
 
 @Composable
@@ -85,8 +86,8 @@ fun DocumentListContent(
             .padding(paddingValues)
     ) {
         LazyColumn(modifier = Modifier.weight(1f)) {
-            items(documents) { receiptDocument ->
-                DocumentRow(receiptDocument, onDocumentClick)
+            items(documents) { documentDocument ->
+                DocumentRow(documentDocument, onDocumentClick)
             }
         }
     }
@@ -94,29 +95,29 @@ fun DocumentListContent(
 
 
 @Composable
-fun DocumentRow(receiptDocument: Document, onDocumentClick: (Document) -> Unit) {
+fun DocumentRow(documentDocument: Document, onDocumentClick: (Document) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onDocumentClick(receiptDocument) },
+            .clickable { onDocumentClick(documentDocument) },
         elevation = CardDefaults.elevatedCardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            DocumentInfo(receiptDocument)
-            ContractorList(contractors = receiptDocument.contractors)
+            DocumentInfo(documentDocument)
+            ContractorList(contractors = documentDocument.contractors)
         }
     }
 }
 
 @Composable
-fun DocumentInfo(receiptDocument: Document) {
+fun DocumentInfo(documentDocument: Document) {
     Text(
-        text = "Date: ${receiptDocument.date}",
+        text = "Date: ${documentDocument.date}",
         style = MaterialTheme.typography.titleMedium
     )
     Text(
-        text = "Symbol: ${receiptDocument.symbol}",
+        text = "Symbol: ${documentDocument.symbol}",
         style = MaterialTheme.typography.titleMedium
     )
     Text(

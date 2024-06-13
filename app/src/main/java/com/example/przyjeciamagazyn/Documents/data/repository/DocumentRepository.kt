@@ -9,33 +9,33 @@ import kotlinx.coroutines.flow.Flow
 
 
 class DocumentRepository(context: Context): DocumentDao {
-    private val receipt = AppDatabase.getInstance(context).documentDao()
+    private val document = AppDatabase.getInstance(context).documentDao()
 
     override fun getAllDocuments(): Flow<List<Document>>  {
-        return receipt.getAllDocuments()
+        return document.getAllDocuments()
     }
 
     override fun getDocument(id: Int): Flow<Document> {
-        return receipt.getDocument(id)
+        return document.getDocument(id)
     }
 
     override fun getDocumentsContainingContractor(contractorId: Int): Flow<List<Document>> {
-        return receipt.getDocumentsContainingContractor(contractorId)
+        return document.getDocumentsContainingContractor(contractorId)
     }
 
     override suspend fun insertDocument(document: Document) {
-        receipt.insertDocument(document)
+        this.document.insertDocument(document)
     }
 
     override suspend fun updateDocument(updatedDocument: Document) {
-        receipt.updateDocument(updatedDocument)
+        document.updateDocument(updatedDocument)
     }
 
     override suspend fun updateDocumentPositions(id: Int, positions: List<Position>) {
-        receipt.updateDocumentPositions(id, positions)
+        document.updateDocumentPositions(id, positions)
     }
 
     override suspend fun deleteAllDocuments() {
-        receipt.deleteAllDocuments()
+        document.deleteAllDocuments()
     }
 }

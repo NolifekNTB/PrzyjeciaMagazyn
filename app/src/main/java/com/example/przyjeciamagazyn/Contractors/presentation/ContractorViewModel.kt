@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ContractorViewModel @Inject constructor (
     private val contractorRepository: ContractorRepository,
-    private val receiptRepository: DocumentRepository
+    private val documentRepository: DocumentRepository
 ): ViewModel() {
     private var _contractors = MutableStateFlow<List<Contractor>>(emptyList())
     var contractors: StateFlow<List<Contractor>> = _contractors
@@ -44,21 +44,21 @@ class ContractorViewModel @Inject constructor (
     fun updateContractor(contractor: Contractor) {
         viewModelScope.launch {
             contractorRepository.updateContractor(contractor)
-            updateReceiptsWithContractor(contractor)
+            updatedocumentsWithContractor(contractor)
             getAllContractors()
         }
     }
 
-    private fun updateReceiptsWithContractor(updatedContractor: Contractor) {
+    private fun updatedocumentsWithContractor(updatedContractor: Contractor) {
         viewModelScope.launch {
-            val receipts = receiptRepository.getDocumentsContainingContractor(updatedContractor.id).first()
+            val documents = documentRepository.getDocumentsContainingContractor(updatedContractor.id).first()
 
-            receipts.forEach { receipt ->
-                val updatedContractors = receipt.contractors.map {
+            documents.forEach { document ->
+                val updatedContractors = document.contractors.map {
                     if (it.id == updatedContractor.id) updatedContractor else it
                 }
-                val updatedReceipt = receipt.copy(contractors = updatedContractors)
-                receiptRepository.updateDocument(updatedReceipt)
+                val updateddocument = document.copy(contractors = updatedContractors)
+                documentRepository.updateDocument(updateddocument)
             }
         }
     }

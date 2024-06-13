@@ -23,8 +23,8 @@ import com.example.przyjeciamagazyn.Core.presentation.Shared.TopAppBarBack
 import com.example.przyjeciamagazyn.Documents.data.model.Position
 
 @Composable
-fun PositionDetailScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
-    val position = receiptViewModel.selectedDocumentPosition.collectAsState().value ?: return
+fun PositionDetailScreen(documentViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
+    val position = documentViewModel.selectedDocumentPosition.collectAsState().value ?: return
 
     Scaffold(
         topBar = { PositionDetailTopBar(onNavigate = onNavigate) },
@@ -40,7 +40,7 @@ fun PositionDetailScreen(receiptViewModel: DocumentViewModel, onNavigate: (Strin
 
 @Composable
 fun PositionDetailTopBar(onNavigate: (String) -> Unit) {
-    TopAppBarBack("Receipt Position") { route -> onNavigate(route) }
+    TopAppBarBack("document Position") { route -> onNavigate(route) }
 }
 
 @Composable

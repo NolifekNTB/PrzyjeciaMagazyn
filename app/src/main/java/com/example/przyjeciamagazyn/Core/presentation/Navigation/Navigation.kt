@@ -12,7 +12,7 @@ import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
 fun NavigationNavGraph(navController: NavHostController) {
-    val receiptViewModel = hiltViewModel<DocumentViewModel>()
+    val documentViewModel = hiltViewModel<DocumentViewModel>()
     val contractorViewModel = hiltViewModel<ContractorViewModel>()
 
     NavHost(
@@ -21,6 +21,6 @@ fun NavigationNavGraph(navController: NavHostController) {
     ) {
         homeGraph(navController)
         contractorGraph(navController, contractorViewModel)
-        documentGraph(navController, contractorViewModel, receiptViewModel)
+        documentGraph(navController, contractorViewModel, documentViewModel)
     }
 }

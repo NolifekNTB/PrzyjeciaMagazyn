@@ -29,18 +29,18 @@ import com.example.przyjeciamagazyn.Documents.data.model.Document
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
-fun PositionsListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
-    val receipt = receiptViewModel.selectedDocument.collectAsState().value ?: return
-
+fun PositionsListScreen(documentViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
+    val selectedDocument = documentViewModel.selectedDocument.collectAsState().value ?: return
+    
     Scaffold(
         topBar = { PositionsListTopBar(onNavigate = onNavigate) },
         content = { paddingValues ->
             PositionsListContent(
-                receipt = receipt,
+                document = selectedDocument,
                 onNavigate = onNavigate,
                 paddingValues = paddingValues,
                 onPositionClick = { position ->
-                    receiptViewModel.selectedDocumentPosition.value = position
+                    documentViewModel.selectedDocumentPosition.value = position
                     onNavigate(Screen.PositionDetailScreen.route)
                 }
             )
@@ -50,12 +50,12 @@ fun PositionsListScreen(receiptViewModel: DocumentViewModel, onNavigate: (String
 
 @Composable
 fun PositionsListTopBar(onNavigate: (String) -> Unit) {
-    TopAppBarBack("Receipt Positions") { route -> onNavigate(route) }
+    TopAppBarBack("document Positions") { route -> onNavigate(route) }
 }
 
 @Composable
 fun PositionsListContent(
-    receipt: Document,
+    document: Document,
     onNavigate: (String) -> Unit,
     paddingValues: PaddingValues,
     onPositionClick: (Position) -> Unit
@@ -68,10 +68,10 @@ fun PositionsListContent(
     ) {
         Spacer(modifier = Modifier.height(15.dp))
 
-        ReceiptInfo(receipt)
+        documentInfo(document)
 
         LazyColumn(modifier = Modifier.weight(1f)) {
-            items(receipt.positions) { position ->
+            items(document.positions) { position ->
                 DocumentPositionRow(position, onPositionClick)
             }
         }
@@ -83,10 +83,10 @@ fun PositionsListContent(
 }
 
 @Composable
-fun ReceiptInfo(receipt: Document) {
-    Text(text = "Data: ${receipt.date}", fontSize = 18.sp, modifier = Modifier.padding(vertical = 4.dp))
-    Text(text = "Symbol: ${receipt.symbol}", fontSize = 18.sp, modifier = Modifier.padding(vertical = 4.dp))
-    Text(text = "Kontrahent: ${receipt.contractors.joinToString { it.name }}", fontSize = 18.sp, modifier = Modifier.padding(vertical = 4.dp))
+fun documentInfo(document: Document) {
+    Text(text = "Data: ${document.date}", fontSize = 18.sp, modifier = Modifier.padding(vertical = 4.dp))
+    Text(text = "Symbol: ${document.symbol}", fontSize = 18.sp, modifier = Modifier.padding(vertical = 4.dp))
+    Text(text = "Kontrahent: ${document.contractors.joinToString { it.name }}", fontSize = 18.sp, modifier = Modifier.padding(vertical = 4.dp))
 }
 
 

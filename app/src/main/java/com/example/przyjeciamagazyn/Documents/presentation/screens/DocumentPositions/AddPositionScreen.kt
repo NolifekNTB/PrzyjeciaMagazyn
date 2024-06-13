@@ -16,10 +16,10 @@ import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
 fun AddPositionScreen(
-    receiptViewModel: DocumentViewModel,
+    documentViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
-    val receiptId  = receiptViewModel.selectedDocument.collectAsState().value?.id ?: 0
+    val documentId  = documentViewModel.selectedDocument.collectAsState().value?.id ?: 0
     var productName by remember { mutableStateOf("") }
     var unit by remember { mutableStateOf("") }
     var quantity by remember { mutableStateOf("") }
@@ -34,8 +34,8 @@ fun AddPositionScreen(
                 onUnitChange = { unit = it },
                 quantity = quantity,
                 onQuantityChange = { quantity = it },
-                receiptId = receiptId,
-                receiptViewModel = receiptViewModel,
+                documentId = documentId,
+                documentViewModel = documentViewModel,
                 onNavigate = onNavigate,
                 paddingValues = paddingValues
             )
@@ -56,8 +56,8 @@ fun AddPositionContent(
     onUnitChange: (String) -> Unit,
     quantity: String,
     onQuantityChange: (String) -> Unit,
-    receiptId: Int,
-    receiptViewModel: DocumentViewModel,
+    documentId: Int,
+    documentViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit,
     paddingValues: PaddingValues
 ) {
@@ -82,8 +82,8 @@ fun AddPositionContent(
             productName = productName,
             unit = unit,
             quantity = quantity,
-            receiptId = receiptId,
-            receiptViewModel = receiptViewModel,
+            documentId = documentId,
+            documentViewModel = documentViewModel,
             onNavigate = onNavigate
         )
     }
@@ -125,8 +125,8 @@ fun AddPositionButton(
     productName: String,
     unit: String,
     quantity: String,
-    receiptId: Int,
-    receiptViewModel: DocumentViewModel,
+    documentId: Int,
+    documentViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
     val isQuantityValid = quantity.toIntOrNull() != null
@@ -136,11 +136,11 @@ fun AddPositionButton(
             if (productName.isNotEmpty() && unit.isNotEmpty() && isQuantityValid) {
                 val newPosition = Position(
                     productName = productName,
-                    documentId = receiptId,
+                    documentId = documentId,
                     unit = unit,
                     quantity = quantity.toInt()
                 )
-                receiptViewModel.insertPosition(newPosition)
+                documentViewModel.insertPosition(newPosition)
                 onNavigate("back")
             }
         },

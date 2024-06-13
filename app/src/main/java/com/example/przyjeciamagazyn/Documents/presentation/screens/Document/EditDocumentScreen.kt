@@ -29,20 +29,20 @@ import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 @Composable
 fun EditDocumentScreen(
     contractorViewModel: ContractorViewModel,
-    receiptViewModel: DocumentViewModel,
+    documentViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
-    val receipt = receiptViewModel.selectedDocument.collectAsState().value
+    val document = documentViewModel.selectedDocument.collectAsState().value
     val contractors by contractorViewModel.contractors.collectAsState(emptyList())
 
     var date by remember { mutableStateOf("") }
     var symbol by remember { mutableStateOf("") }
-    val receiptId = receipt?.id ?: 0
+    val documentId = document?.id ?: 0
     var selectedContractors by remember { mutableStateOf<List<Contractor>>(emptyList()) }
     var contractorListExpanded by remember { mutableStateOf(false) }
 
-    LaunchedEffect(receipt) {
-        receipt?.let {
+    LaunchedEffect(document) {
+        document?.let {
             date = it.date
             symbol = it.symbol
             selectedContractors = it.contractors
@@ -64,14 +64,14 @@ fun EditDocumentScreen(
                 onExpandedChange = { contractorListExpanded = it },
                 onUpdateClick = {
                     if (date.isNotEmpty() && symbol.isNotEmpty()) {
-                        val updatedReceipt = Document(
-                            id = receiptId,
+                        val updateddocument = Document(
+                            id = documentId,
                             date = date,
                             symbol = symbol,
                             contractors = selectedContractors,
-                            positions = receipt?.positions ?: emptyList()
+                            positions = document?.positions ?: emptyList()
                         )
-                        receiptViewModel.updateDocument(updatedReceipt)
+                        documentViewModel.updateDocument(updateddocument)
                         onNavigate("back")
                     }
                 },
@@ -83,7 +83,7 @@ fun EditDocumentScreen(
 
 @Composable
 fun EditDocumentTopBar(onNavigate: (String) -> Unit) {
-    TopAppBarBack("Edit Receipt") { route -> onNavigate(route) }
+    TopAppBarBack("Edit document") { route -> onNavigate(route) }
 }
 
 @Composable
