@@ -63,7 +63,7 @@ fun EditDocumentScreen(
                 contractorListExpanded = contractorListExpanded,
                 onExpandedChange = { contractorListExpanded = it },
                 onUpdateClick = {
-                    if (date.isNotEmpty() && symbol.isNotEmpty() && selectedContractors.isNotEmpty()) {
+                    if (date.isNotEmpty() && symbol.isNotEmpty()) {
                         val updatedReceipt = Document(
                             id = receiptId,
                             date = date,
@@ -135,6 +135,6 @@ fun UpdateDocumentButton(onClick: () -> Unit) {
             .fillMaxWidth()
             .padding(vertical = 8.dp)
     ) {
-        Text("Update Receipt", fontSize = 18.sp)
+        Text("Update Document", fontSize = 18.sp)
     }
 }
