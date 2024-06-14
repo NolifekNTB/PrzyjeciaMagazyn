@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -65,11 +66,15 @@ class DocumentViewModel @Inject constructor(
 
     private fun updateDocumentPositions(documentId: Int, positionId: Int) {
         viewModelScope.launch {
-            val positions = positionRepository.getPositionsForDocument(documentId).first()
-            documentRepository.updateDocumentPositions(selectedDocument.value!!.id, positions)
-            val document = documentRepository.getDocument(documentId).first()
+            val positions = positionRepository.getPositionsForDocument(documentId).firstOrNull() ?: emptyList()
+            //here was modified
+            val selectedDoc = selectedDocument.value ?: return@launch
+            documentRepository.updateDocumentPositions(selectedDoc.id, positions)
+
+            val document = documentRepository.getDocument(documentId).firstOrNull() ?: return@launch
             _selectedDocument.value = document
-            val position = positionRepository.getPosition(positionId).first()
+
+            val position = positionRepository.getPosition(positionId).firstOrNull() ?: return@launch
             selectedDocumentPosition.value = position
         }
     }

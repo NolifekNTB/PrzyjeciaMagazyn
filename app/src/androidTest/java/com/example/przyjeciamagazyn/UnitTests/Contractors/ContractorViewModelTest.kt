@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.UnitTests
+package com.example.przyjeciamagazyn.UnitTests.Contractors
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -9,7 +9,6 @@ import com.example.przyjeciamagazyn.Documents.data.model.Document
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
 import com.example.przyjeciamagazyn.Documents.data.model.Position
 import io.mockk.*
-import io.mockk.spyk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.*
@@ -18,7 +17,6 @@ import org.junit.Test
 import junit.framework.TestCase.assertEquals
 import org.junit.Rule
 import org.junit.runner.RunWith
-import org.mockito.kotlin.spy
 
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi

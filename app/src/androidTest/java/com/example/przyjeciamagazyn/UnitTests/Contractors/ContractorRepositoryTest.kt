@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.UnitTests
+package com.example.przyjeciamagazyn.UnitTests.Contractors
 
 import android.content.Context
 import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
