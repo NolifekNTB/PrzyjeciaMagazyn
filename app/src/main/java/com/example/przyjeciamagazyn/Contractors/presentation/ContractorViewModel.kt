@@ -27,7 +27,7 @@ class ContractorViewModel @Inject constructor (
         getAllContractors()
     }
 
-    private fun getAllContractors() {
+    fun getAllContractors() {
         viewModelScope.launch {
             val result = contractorRepository.getAllContractors().first()
             _contractors.value = result

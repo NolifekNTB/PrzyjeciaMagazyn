@@ -64,6 +64,7 @@ dependencies {
     debugImplementation ("androidx.compose.ui:ui-tooling:1.4.0")
     debugImplementation ("androidx.compose.ui:ui-test-manifest:1.6.8")
     testImplementation ("org.jetbrains.kotlin:kotlin-test-junit:1.9.0")
+    androidTestImplementation ("androidx.arch.core:core-testing:2.2.0")
 
     //Mockito
     testImplementation("org.mockito:mockito-core:4.0.0")
@@ -72,9 +73,11 @@ dependencies {
     testImplementation ("org.mockito.kotlin:mockito-kotlin:4.0.0")
     implementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
+    //Turbine
+    testImplementation ("app.cash.turbine:turbine:0.6.1")
+    androidTestImplementation ("app.cash.turbine:turbine:0.6.1")
 
-    //Mockk
-    //testImplementation(libs.mockk.android)
+    //Mock
     implementation(libs.mockk.android)
 
     // Kotlin Coroutines Test
@@ -89,7 +92,7 @@ dependencies {
     testImplementation ("androidx.test:rules:1.5.0")
 
     // Room testing
-    testImplementation ("androidx.room:room-testing:2.3.0")
+    testImplementation ("androidx.room:room-testing:2.6.1")
 
     //Core
     implementation (libs.androidx.core.ktx)
