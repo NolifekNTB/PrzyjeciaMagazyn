@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 class DocumentRepository(context: Context): DocumentDao {
-    private val document = AppDatabase.getInstance(context).documentDao()
+    var document = AppDatabase.getInstance(context).documentDao()
 
     override fun getAllDocuments(): Flow<List<Document>>  {
         return document.getAllDocuments()
