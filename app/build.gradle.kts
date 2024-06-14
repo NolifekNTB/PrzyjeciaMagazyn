@@ -48,14 +48,54 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+            )
+        )
     }
 }
 
 dependencies {
-    //testsUI
-    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.4.0")
+    //tests
+    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.6.8")
     debugImplementation ("androidx.compose.ui:ui-tooling:1.4.0")
-    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.4.0")
+    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.6.8")
+    testImplementation ("org.jetbrains.kotlin:kotlin-test-junit:1.9.0")
+
+    //Mockito
+    testImplementation("org.mockito:mockito-core:4.0.0")
+    implementation("org.mockito:mockito-core:4.0.0")
+    testImplementation ("org.mockito:mockito-inline:3.12.4")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    implementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+
+
+    //Mockk
+    //testImplementation(libs.mockk.android)
+    implementation(libs.mockk.android)
+
+    // Kotlin Coroutines Test
+    testImplementation (libs.kotlinx.coroutines.test)
+
+    // AndroidX Test - Core library
+    testImplementation ("androidx.test:core:1.5.0")
+    testImplementation ("androidx.test.ext:junit:1.1.5")
+
+    // AndroidX Test - Runner and Rules
+    testImplementation ("androidx.test:runner:1.5.2")
+    testImplementation ("androidx.test:rules:1.5.0")
+
+    // Room testing
+    testImplementation ("androidx.room:room-testing:2.3.0")
+
+    //Core
+    implementation (libs.androidx.core.ktx)
+    implementation (libs.androidx.lifecycle.runtime.ktx)
+    implementation (libs.androidx.activity.compose)
+
 
     //Hilt
     implementation(libs.hilt.android)
