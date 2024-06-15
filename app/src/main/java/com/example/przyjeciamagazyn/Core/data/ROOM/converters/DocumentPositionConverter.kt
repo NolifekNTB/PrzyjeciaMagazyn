@@ -15,7 +15,7 @@ class DocumentPositionConverter {
     }
 
     @TypeConverter
-    fun toPositionList(positionString: String): List<Position> {
+    fun toPositionList(positionString: String?): List<Position> {
         return if (positionString.isNullOrEmpty()) {
             emptyList()
         } else {
