@@ -1,4 +1,4 @@
-package com.example.przyjeciamagazyn.UnitTests.Contractors
+package com.example.przyjeciamagazyn.UnitTests
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -8,6 +8,7 @@ import com.example.przyjeciamagazyn.Documents.data.repository.DocumentRepository
 import com.example.przyjeciamagazyn.Documents.data.model.Document
 import com.example.przyjeciamagazyn.Contractors.presentation.ContractorViewModel
 import com.example.przyjeciamagazyn.Documents.data.model.Position
+import com.example.przyjeciamagazyn.UnitTests.CoroutineTestRule
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf

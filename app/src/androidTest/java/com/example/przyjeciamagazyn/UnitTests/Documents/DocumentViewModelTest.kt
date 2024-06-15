@@ -7,7 +7,7 @@ import com.example.przyjeciamagazyn.Documents.data.model.Position
 import com.example.przyjeciamagazyn.Documents.data.repository.DocumentRepository
 import com.example.przyjeciamagazyn.Documents.data.repository.PositionsRepository
 import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
-import com.example.przyjeciamagazyn.UnitTests.Contractors.CoroutineTestRule
+import com.example.przyjeciamagazyn.UnitTests.CoroutineTestRule
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
