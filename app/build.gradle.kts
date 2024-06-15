@@ -31,6 +31,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -67,11 +68,17 @@ dependencies {
     androidTestImplementation ("androidx.arch.core:core-testing:2.2.0")
 
     //Mockito
-    testImplementation("org.mockito:mockito-core:4.0.0")
-    implementation("org.mockito:mockito-core:4.0.0")
+    testImplementation("org.mockito:mockito-core:5.12.0")
+    implementation("org.mockito:mockito-core:5.12.0")
     testImplementation ("org.mockito:mockito-inline:3.12.4")
     testImplementation ("org.mockito.kotlin:mockito-kotlin:4.0.0")
     implementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    androidTestImplementation ("org.mockito:mockito-android:5.12.0")
+    implementation("org.mockito:mockito-android:5.12.0")
+
+    //Hilt Android tests
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:2.50")
+    kaptAndroidTest ("com.google.dagger:hilt-compiler:2.50")
 
     //Turbine
     testImplementation ("app.cash.turbine:turbine:0.6.1")

@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- "dagger.hilt.android.testing.HiltTestApplication" -->
+    <!-- ".Core.di.MyApp" -->
     <application
-        android:name=".Core.di.MyApp"
+        android:name="dagger.hilt.android.testing.HiltTestApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"

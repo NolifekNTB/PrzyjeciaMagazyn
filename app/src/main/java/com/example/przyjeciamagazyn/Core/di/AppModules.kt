@@ -26,7 +26,6 @@ object AppModules {
         return PositionsRepository(app.applicationContext)
     }
 
-
     @Provides
     @Singleton
     fun provideContextContractorRepository(app: Application): ContractorRepository {
