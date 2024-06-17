@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @HiltViewModel
 class ContractorViewModel @Inject constructor (
     private val contractorRepository: ContractorRepository,

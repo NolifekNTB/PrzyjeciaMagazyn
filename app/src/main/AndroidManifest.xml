@@ -5,7 +5,7 @@
     <!-- "dagger.hilt.android.testing.HiltTestApplication" -->
     <!-- ".Core.di.MyApp" -->
     <application
-        android:name="dagger.hilt.android.testing.HiltTestApplication"
+        android:name=".Core.di.MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
