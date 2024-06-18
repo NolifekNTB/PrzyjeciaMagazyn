@@ -41,6 +41,7 @@ fun EditDocumentScreen(
     var selectedContractors by remember { mutableStateOf<List<Contractor>>(emptyList()) }
     var contractorListExpanded by remember { mutableStateOf(false) }
 
+    // Update state with selected document details
     LaunchedEffect(document) {
         document?.let {
             date = it.date
@@ -50,9 +51,9 @@ fun EditDocumentScreen(
     }
 
     Scaffold(
-        topBar = { EditDocumentTopBar { onNavigate("back") } },
+        topBar = { EditDocumentTopAppBar { onNavigate("back") } },
         content = { paddingValues ->
-            EditDocumentContent(
+            EditDocumentForm(
                 date = date,
                 onDateChange = { date = it },
                 symbol = symbol,
@@ -82,12 +83,12 @@ fun EditDocumentScreen(
 }
 
 @Composable
-fun EditDocumentTopBar(onNavigate: (String) -> Unit) {
+fun EditDocumentTopAppBar(onNavigate: (String) -> Unit) {
     TopAppBarBack("Edit document") { route -> onNavigate(route) }
 }
 
 @Composable
-fun EditDocumentContent(
+fun EditDocumentForm(
     date: String,
     onDateChange: (String) -> Unit,
     symbol: String,

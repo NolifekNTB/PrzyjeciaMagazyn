@@ -20,14 +20,14 @@ class DocumentViewModel @Inject constructor(
     private val documentRepository: DocumentRepository,
     private val positionRepository: PositionsRepository
 ): ViewModel() {
-    private var _documentDocuments = MutableStateFlow<List<Document>>(emptyList())
-    var documentDocuments: Flow<List<Document>> = _documentDocuments
+    private var _documentList = MutableStateFlow<List<Document>>(emptyList())
+    var documentList: Flow<List<Document>> = _documentList
 
 
     private var _selectedDocument = MutableStateFlow<Document?>(null)
     val selectedDocument: StateFlow<Document?> = _selectedDocument
 
-    var selectedDocumentPosition = MutableStateFlow<Position?>(null)
+    var selectedPosition = MutableStateFlow<Position?>(null)
 
     fun selectDocument(document: Document) {
         _selectedDocument.value = document
@@ -36,7 +36,7 @@ class DocumentViewModel @Inject constructor(
     fun getALlDocuments() {
         viewModelScope.launch {
             val result = documentRepository.getAllDocuments().first()
-            _documentDocuments.value = result
+            _documentList.value = result
         }
     }
 
@@ -64,6 +64,7 @@ class DocumentViewModel @Inject constructor(
         }
     }
 
+    //Updates the positions associated with a document and refreshes the selected document and position states.
     private fun updateDocumentPositions(documentId: Int, positionId: Int) {
         viewModelScope.launch {
             val positions = positionRepository.getPositionsForDocument(documentId).firstOrNull() ?: emptyList()
@@ -75,7 +76,7 @@ class DocumentViewModel @Inject constructor(
             _selectedDocument.value = document
 
             val position = positionRepository.getPosition(positionId).firstOrNull() ?: return@launch
-            selectedDocumentPosition.value = position
+            selectedPosition.value = position
         }
     }
 }

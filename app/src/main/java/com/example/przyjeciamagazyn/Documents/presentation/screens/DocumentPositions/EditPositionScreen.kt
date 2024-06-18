@@ -29,7 +29,7 @@ fun EditPositionScreen(
     documentViewModel: DocumentViewModel,
     onNavigate: (String) -> Unit
 ) {
-    val position = documentViewModel.selectedDocumentPosition.collectAsState().value ?: return
+    val position = documentViewModel.selectedPosition.collectAsState().value ?: return
 
     var productName by remember { mutableStateOf("") }
     var unit by remember { mutableStateOf("") }

@@ -5,6 +5,9 @@ import com.example.przyjeciamagazyn.Contractors.data.model.Contractor
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
+/**
+ * TypeConverter for converting a list of Contractor objects to and from a JSON string.
+ */
 class ContractorConverter {
     private val gson = Gson()
     private val type = object : TypeToken<List<Contractor>>() {}.type

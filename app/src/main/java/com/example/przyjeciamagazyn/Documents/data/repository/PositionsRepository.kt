@@ -13,6 +13,7 @@ class PositionsRepository(context: Context): PositionDao {
         return documentPosition.getPosition(id)
     }
 
+    //Retrieves positions associated with a specific document.
     override fun getPositionsForDocument(documentId: Int): Flow<List<Position>> {
         return documentPosition.getPositionsForDocument(documentId)
     }

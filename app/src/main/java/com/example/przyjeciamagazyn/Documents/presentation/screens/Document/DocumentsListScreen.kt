@@ -16,7 +16,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -39,18 +38,19 @@ import com.example.przyjeciamagazyn.Documents.presentation.DocumentViewModel
 
 @Composable
 fun DocumentListScreen(documentViewModel: DocumentViewModel, onNavigate: (String) -> Unit, ) {
-    val documents by documentViewModel.documentDocuments.collectAsState(emptyList())
+    val documents by documentViewModel.documentList.collectAsState(emptyList())
     val selectedDocument by documentViewModel.selectedDocument.collectAsState()
 
+    // Fetch all documents when a new document is selected
     LaunchedEffect(key1 = selectedDocument) {
         documentViewModel.getALlDocuments()
     }
 
     Scaffold(
-        topBar = { DocumentListTopBar(onNavigate = onNavigate) },
+        topBar = { DocumentListTopAppBar(onNavigate = onNavigate) },
         floatingActionButton = { AddDocumentButton(onNavigate = onNavigate) },
         content = { paddingValues ->
-            DocumentListContent(
+            DocumentListView(
                 documents = documents,
                 paddingValues = paddingValues,
                 onDocumentClick = { document ->
@@ -63,7 +63,7 @@ fun DocumentListScreen(documentViewModel: DocumentViewModel, onNavigate: (String
 }
 
 @Composable
-fun DocumentListTopBar(onNavigate: (String) -> Unit) {
+fun DocumentListTopAppBar(onNavigate: (String) -> Unit) {
     TopAppBarBack(screenTitle = "document List", onNavigateBack = onNavigate)
 }
 
@@ -75,7 +75,7 @@ fun AddDocumentButton(onNavigate: (String) -> Unit) {
 }
 
 @Composable
-fun DocumentListContent(
+fun DocumentListView(
     documents: List<Document>,
     paddingValues: PaddingValues,
     onDocumentClick: (Document) -> Unit
@@ -87,7 +87,7 @@ fun DocumentListContent(
     ) {
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(documents) { documentDocument ->
-                DocumentRow(documentDocument, onDocumentClick)
+                DocumentListItem(documentDocument, onDocumentClick)
             }
         }
     }
@@ -95,7 +95,7 @@ fun DocumentListContent(
 
 
 @Composable
-fun DocumentRow(documentDocument: Document, onDocumentClick: (Document) -> Unit) {
+fun DocumentListItem(documentDocument: Document, onDocumentClick: (Document) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -104,14 +104,14 @@ fun DocumentRow(documentDocument: Document, onDocumentClick: (Document) -> Unit)
         elevation = CardDefaults.elevatedCardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            DocumentInfo(documentDocument)
-            ContractorList(contractors = documentDocument.contractors)
+            DocumentDetails(documentDocument)
+            ContractorListView(contractors = documentDocument.contractors)
         }
     }
 }
 
 @Composable
-fun DocumentInfo(documentDocument: Document) {
+fun DocumentDetails(documentDocument: Document) {
     Text(
         text = "Date: ${documentDocument.date}",
         style = MaterialTheme.typography.titleMedium
@@ -127,18 +127,18 @@ fun DocumentInfo(documentDocument: Document) {
 }
 
 @Composable
-fun ContractorList(contractors: List<Contractor>) {
+fun ContractorListView(contractors: List<Contractor>) {
     Spacer(modifier = Modifier.height(8.dp))
     Column {
         contractors.forEach { contractor ->
-            ContractorRow(contractor)
+            ContractorListItem(contractor)
         }
     }
 }
 
 
 @Composable
-fun ContractorRow(contractor: Contractor) {
+fun ContractorListItem(contractor: Contractor) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

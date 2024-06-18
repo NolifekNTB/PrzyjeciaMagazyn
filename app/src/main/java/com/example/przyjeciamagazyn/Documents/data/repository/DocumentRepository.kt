@@ -19,6 +19,7 @@ class DocumentRepository(context: Context): DocumentDao {
         return document.getDocument(id)
     }
 
+    //Retrieves documents containing a specific contractor.
     override fun getDocumentsContainingContractor(contractorId: Int): Flow<List<Document>> {
         return document.getDocumentsContainingContractor(contractorId)
     }
@@ -31,6 +32,7 @@ class DocumentRepository(context: Context): DocumentDao {
         document.updateDocument(updatedDocument)
     }
 
+    //Updates the positions associated with a document
     override suspend fun updateDocumentPositions(id: Int, positions: List<Position>) {
         document.updateDocumentPositions(id, positions)
     }

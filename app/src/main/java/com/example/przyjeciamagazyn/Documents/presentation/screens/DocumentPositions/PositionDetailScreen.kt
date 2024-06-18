@@ -24,7 +24,7 @@ import com.example.przyjeciamagazyn.Documents.data.model.Position
 
 @Composable
 fun PositionDetailScreen(documentViewModel: DocumentViewModel, onNavigate: (String) -> Unit) {
-    val position = documentViewModel.selectedDocumentPosition.collectAsState().value ?: return
+    val position = documentViewModel.selectedPosition.collectAsState().value ?: return
 
     Scaffold(
         topBar = { PositionDetailTopBar(onNavigate = onNavigate) },

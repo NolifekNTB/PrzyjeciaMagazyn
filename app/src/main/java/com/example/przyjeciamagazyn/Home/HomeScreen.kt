@@ -38,13 +38,13 @@ fun HomeScreenContent(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TitleText(text = "Przyjecia Magazyn")
+        ScreenTitle(text = "Przyjecia Magazyn")
         Spacer(modifier = Modifier.height(16.dp))
-        ActionButton(
+        NavigationButton(
             text = "Lista Dokumentów",
             onClick = onDocumentListClick
         )
-        ActionButton(
+        NavigationButton(
             text = "Kontrahenci",
             onClick = onContractorListClick
         )
@@ -52,7 +52,7 @@ fun HomeScreenContent(
 }
 
 @Composable
-fun TitleText(text: String) {
+fun ScreenTitle(text: String) {
     Text(
         text = text,
         fontSize = 24.sp,
@@ -62,7 +62,7 @@ fun TitleText(text: String) {
 }
 
 @Composable
-fun ActionButton(text: String, onClick: () -> Unit) {
+fun NavigationButton(text: String, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         modifier = Modifier

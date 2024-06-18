@@ -40,7 +40,7 @@ fun PositionsListScreen(documentViewModel: DocumentViewModel, onNavigate: (Strin
                 onNavigate = onNavigate,
                 paddingValues = paddingValues,
                 onPositionClick = { position ->
-                    documentViewModel.selectedDocumentPosition.value = position
+                    documentViewModel.selectedPosition.value = position
                     onNavigate(Screen.PositionDetailScreen.route)
                 }
             )

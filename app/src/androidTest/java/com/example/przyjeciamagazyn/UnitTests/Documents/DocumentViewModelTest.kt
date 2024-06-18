@@ -66,7 +66,7 @@ class DocumentViewModelTest {
         documentViewModel.getALlDocuments()
         coroutineTestRule.scope.advanceUntilIdle()
 
-        assertEquals(documents, documentViewModel.documentDocuments.first())
+        assertEquals(documents, documentViewModel.documentList.first())
     }
 
     @Test

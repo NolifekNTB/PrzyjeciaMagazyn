@@ -5,6 +5,9 @@ import com.example.przyjeciamagazyn.Documents.data.model.Position
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
+/**
+ * TypeConverter for converting a list of Position objects to and from a JSON string.
+ */
 class DocumentPositionConverter {
     private val gson = Gson()
     private val type = object : TypeToken<List<Position>>() {}.type

@@ -38,9 +38,9 @@ fun AddDocumentScreen(
     val contractors = contractorViewModel.contractors.collectAsState(emptyList()).value
 
     Scaffold(
-        topBar = { AddDocumentTopBar(onNavigate) },
+        topBar = { AddDocumentTopAppBar(onNavigate) },
         content = { paddingValues ->
-            AddDocumentContent(
+            AddDocumentForm(
                 date = date,
                 onDateChange = { date = it },
                 symbol = symbol,
@@ -69,12 +69,12 @@ fun AddDocumentScreen(
 }
 
 @Composable
-fun AddDocumentTopBar(onNavigate: (String) -> Unit) {
+fun AddDocumentTopAppBar(onNavigate: (String) -> Unit) {
     TopAppBarBack("Add New document") { route -> onNavigate(route) }
 }
 
 @Composable
-fun AddDocumentContent(
+fun AddDocumentForm(
     date: String,
     onDateChange: (String) -> Unit,
     symbol: String,
