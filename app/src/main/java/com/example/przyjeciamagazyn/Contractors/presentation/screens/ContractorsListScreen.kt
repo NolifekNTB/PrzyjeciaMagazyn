@@ -17,7 +17,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -35,21 +34,21 @@ fun ContractorListScreen(contractorViewModel: ContractorViewModel, onNavigate: (
     val contractorList by contractorViewModel.contractors.collectAsState(emptyList())
 
     Scaffold(
-        topBar = { ContractorListTopBar(onNavigate) },
-        floatingActionButton = { AddContractorFab(onNavigate) },
+        topBar = { ContractorListTopAppBar(onNavigate) },
+        floatingActionButton = { SubmitContractorButton(onNavigate) },
         content = { padding ->
-            ContractorListContent(contractorList, contractorViewModel, onNavigate, padding)
+            ContractorListView(contractorList, contractorViewModel, onNavigate, padding)
         }
     )
 }
 
 @Composable
-fun ContractorListTopBar(onNavigate: (String) -> Unit) {
+fun ContractorListTopAppBar(onNavigate: (String) -> Unit) {
     TopAppBarBack(screenTitle = "Contractors list") { route -> onNavigate(route) }
 }
 
 @Composable
-fun AddContractorFab(onNavigate: (String) -> Unit) {
+fun SubmitContractorButton(onNavigate: (String) -> Unit) {
     FloatingActionButton(
         onClick = { onNavigate(AddScreens.AddContractorScreen.route) },
         modifier = Modifier.padding(16.dp)
@@ -59,7 +58,7 @@ fun AddContractorFab(onNavigate: (String) -> Unit) {
 }
 
 @Composable
-fun ContractorListContent(
+fun ContractorListView(
     contractorList: List<Contractor>,
     contractorViewModel: ContractorViewModel,
     onNavigate: (String) -> Unit,
@@ -72,19 +71,20 @@ fun ContractorListContent(
     ) {
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(contractorList) { contractor ->
-                ContractorRow(contractor, contractorViewModel, onNavigate)
+                ContractorListItem(contractor, contractorViewModel, onNavigate)
             }
         }
     }
 }
 
 @Composable
-fun ContractorRow(contractor: Contractor, contractorViewModel: ContractorViewModel, onNavigate: (String) -> Unit) {
+fun ContractorListItem(contractor: Contractor, contractorViewModel: ContractorViewModel, onNavigate: (String) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
+                // Navigate to the contractor edit screen when the card is clicked
                 contractorViewModel.selectContractor(contractor)
                 onNavigate(EditScreens.EditContractorScreen.route)
             },

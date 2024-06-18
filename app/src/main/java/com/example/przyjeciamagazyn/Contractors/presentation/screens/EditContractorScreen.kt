@@ -22,6 +22,7 @@ fun EditContractorScreen(
     var symbol by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
 
+    // Update the state with the selected contractor's details when the contractor is loaded
     LaunchedEffect(contractor) {
         contractor?.let {
             symbol = it.symbol
@@ -30,9 +31,9 @@ fun EditContractorScreen(
     }
 
     Scaffold(
-        topBar = { EditContractorTopBar(onNavigate) },
+        topBar = { EditContractorTopAppBar(onNavigate) },
         content = { padding ->
-            EditContractorContent(
+            EditContractorForm(
                 symbol = symbol,
                 onSymbolChange = { symbol = it },
                 name = name,
@@ -56,12 +57,12 @@ fun EditContractorScreen(
 }
 
 @Composable
-fun EditContractorTopBar(onNavigate: (String) -> Unit) {
+fun EditContractorTopAppBar(onNavigate: (String) -> Unit) {
     TopAppBarBack(screenTitle = "Edit Contractor") { route -> onNavigate(route) }
 }
 
 @Composable
-fun EditContractorContent(
+fun EditContractorForm(
     symbol: String,
     onSymbolChange: (String) -> Unit,
     name: String,

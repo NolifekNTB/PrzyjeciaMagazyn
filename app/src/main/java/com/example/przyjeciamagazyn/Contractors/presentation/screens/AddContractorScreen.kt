@@ -22,9 +22,9 @@ fun AddContractorScreen(
     var name by remember { mutableStateOf("") }
 
     Scaffold(
-        topBar = { AddContractorTopBar(onNavigate) },
+        topBar = { AddContractorTopAppBar(onNavigate) },
         content = { padding ->
-            AddContractorContent(
+            AddContractorForm(
                 symbol = symbol,
                 onSymbolChange = { symbol = it },
                 name = name,
@@ -38,12 +38,12 @@ fun AddContractorScreen(
 }
 
 @Composable
-fun AddContractorTopBar(onNavigate: (String) -> Unit) {
+fun AddContractorTopAppBar(onNavigate: (String) -> Unit) {
     TopAppBarBack(screenTitle = "Add New Contractor") { route -> onNavigate(route) }
 }
 
 @Composable
-fun AddContractorContent(
+fun AddContractorForm(
     symbol: String,
     onSymbolChange: (String) -> Unit,
     name: String,
@@ -66,7 +66,7 @@ fun AddContractorContent(
             onNameChange = onNameChange
         )
         Spacer(modifier = Modifier.height(16.dp))
-        AddContractorButton(
+        SubmitContractorButton(
             symbol = symbol,
             name = name,
             contractorViewModel = contractorViewModel
@@ -99,7 +99,7 @@ fun ContractorInputFields(
 }
 
 @Composable
-fun AddContractorButton(
+fun SubmitContractorButton(
     symbol: String,
     name: String,
     contractorViewModel: ContractorViewModel,

@@ -50,6 +50,7 @@ class ContractorViewModel @Inject constructor (
         }
     }
 
+    //Updates documents to reflect changes in the specified contractor
     private fun updatedocumentsWithContractor(updatedContractor: Contractor) {
         viewModelScope.launch {
             val documents = documentRepository.getDocumentsContainingContractor(updatedContractor.id).first()
